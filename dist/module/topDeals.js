@@ -14,44 +14,44 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const node_cron_1 = __importDefault(require("node-cron"));
-// Array stockant les bons plans
+// Array that stocks hottest deals
 let topDeals = [];
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        node_cron_1.default.schedule('30 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
-            // Préparation de puppeteer
+        node_cron_1.default.schedule('30 24 * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
+            // Preparing puppeteer
             const browser = yield puppeteer_1.default.launch({
                 headless: true,
                 args: ['--no-sandbox']
             });
-            // Lancement de dealabs
+            // Launching dealabs home page
             const page = yield browser.newPage();
             const URL = "https://www.dealabs.com";
             yield page.goto(URL, { waitUntil: "networkidle0" });
-            // Clique sur le message d'autorisation des cookies
+            // Allow cookies
             yield page.click("button.flex--grow-1.flex--fromW3-grow-0.width--fromW3-ctrl-m.space--b-2.space--fromW3-b-0");
-            // Récupération de nos données pour notre bot
+            // Retrieving data
             setTimeout(() => __awaiter(void 0, void 0, void 0, function* () {
-                // Récupère les div en carousel
+                // Get carousel div
                 const options = yield page.$$("div.flex.flex--grow-1");
-                // Le carousel qui nous intéresse
+                // Retrieve the one which interest us
                 const deals = options[1];
-                // Liste des attributs qui nous intéresse
+                // Title of deals
                 const titles = yield deals.$$("a[title]");
-                // Lien vers le deals
+                // Link of deals
                 const hrefs = yield deals.$$("a[href]");
                 for (let index = 0; index < 5; index++) {
-                    // Récupération du string des titres des deals
+                    // Title to string
                     const titleDealString = yield page.evaluate((title) => title.getAttribute("title"), titles[index]);
-                    // Récupération du sting des liens vers les deals
+                    // Link into string
                     const hrefDealString = yield page.evaluate((href) => href.getAttribute("href"), hrefs[index]);
-                    // Image du deal
+                    // Image of deal
                     const imgs = yield titles[index].$("img[src]");
                     const imgDealURL = yield page.evaluate((img) => img.getAttribute("src"), imgs);
-                    // Valeur de l'upvote
+                    // Value
                     const upvoteTag = yield titles[index].$('strong');
                     const upvote = yield page.evaluate(tag => tag.textContent, upvoteTag);
-                    // Valeur du prix ou de la réduction
+                    // Price or reduction
                     const priceTag = yield titles[index].$('span.text--overlay');
                     let price = '';
                     if (priceTag != null) {
@@ -75,7 +75,7 @@ let topDeals = [];
         }));
     }
     catch (error) {
-        (new Date().toLocaleString() + ' ' + error);
+        console.log(new Date().toLocaleString() + ' ' + error);
         throw error;
     }
 }))();
