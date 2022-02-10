@@ -1,14 +1,14 @@
 import puppeteer from 'puppeteer';
 import cron from 'node-cron';
 
-let hots: {
+let newDeals: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
     insertedTime: string;
 }[] = [];
 
 (async () => {
     try {
-        cron.schedule('30 * * * * *', async () => {
+        cron.schedule('45 * * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -18,7 +18,7 @@ let hots: {
 
             // Opening dealabs hot tab
             const page = await browser.newPage();
-            const URL = "https://www.dealabs.com/hot";
+            const URL = "https://www.dealabs.com/nouveaux";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
             // Allow cookies
@@ -33,7 +33,7 @@ let hots: {
                     const listDeals = await page.$$("div.threadGrid");
                     console.log(
                         new Date().toLocaleString() +
-                        " ----------- EXTRACTION DES DEALS HOT -------"
+                        " ----------- EXTRACTION DES DEALS NEW -------"
                     );
 
                     // initiating index for looping list of deals
@@ -55,7 +55,7 @@ let hots: {
 
                         // Retrieving upvote
                         const upvoteTag = await listDeals[index].$(
-                            "span.cept-vote-temp.vote-temp.vote-temp--hot"
+                            "span.cept-vote-temp.vote-temp"
                         );
 
                         // That's the only tag where we know the deal is expired
@@ -124,7 +124,7 @@ let hots: {
                             username = username.replace(/\s/g, "");
 
                             //Inserting to array of deals
-                            hots.push({
+                            newDeals.push({
                                 title: title,
                                 url: url,
                                 img: imgDeal,
@@ -135,7 +135,7 @@ let hots: {
                             })
                         }
                         //log
-                        console.log(hots)
+                        console.log(newDeals)
                         console.log(new Date().toLocaleString() +
                             "------------------------------------------------------------------------------------------------"
                         );
@@ -156,4 +156,4 @@ let hots: {
 
 })();
 
-export default { hots };
+export default { newDeals };

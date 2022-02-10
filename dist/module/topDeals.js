@@ -61,11 +61,11 @@ let topDeals = [];
                         price = '';
                     }
                     topDeals.push({
-                        titre: titleDealString,
+                        title: titleDealString,
                         url: URL + hrefDealString,
                         img: imgDealURL,
-                        note: upvote,
-                        prix: price
+                        upvote: upvote,
+                        price: price
                     });
                 }
                 console.log(new Date().toLocaleString() + ' ----------- EXTRACTION DES DEALS -------');

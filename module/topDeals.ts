@@ -2,7 +2,7 @@ import puppeteer from 'puppeteer';
 import cron from 'node-cron';
 
 // Array that stocks hottest deals
-let topDeals: { titre: string; url: string; img: string; note: string; prix: string; }[] = [];
+let topDeals: { title: string; url: string; img: string; upvote: string; price: string; }[] = [];
 
 (async () => {
   try {
@@ -75,11 +75,11 @@ let topDeals: { titre: string; url: string; img: string; note: string; prix: str
           }
 
           topDeals.push({
-            titre: titleDealString,
+            title: titleDealString,
             url: URL + hrefDealString,
             img: imgDealURL,
-            note: upvote,
-            prix: price
+            upvote: upvote,
+            price: price
           });
           
         }
