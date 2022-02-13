@@ -40,6 +40,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
         // Link of deals
         const hrefs = await deals.$$("a[href]");
 
+        topDeals.length = 0;
 
         for (let index = 0; index < 5; index++) {
           // Title to string

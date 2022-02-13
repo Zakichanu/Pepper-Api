@@ -39,12 +39,14 @@ let newDeals: {
                     // initiating index for looping list of deals
                     var limit = 5;
 
+                    newDeals.length = 0;
+
                     // Looping in deals
                     for (let index = 0; index < limit; index++) {
                         // Initializing variables
                         var upvote = "";
                         var imgDeal = "";
-                        var insertedTime = "";
+                        var insertedTime = "NEW";
                         var url = "";
                         var title = "";
                         var price = "";
@@ -81,21 +83,6 @@ let newDeals: {
                                 "svg.icon.icon--flame.text--color-greyShade.space--mr-1"
                             );
 
-                            if (flameIconTag) {
-                                const insertedTimeParentTag = await flameIconTag.getProperty(
-                                    "parentNode"
-                                );
-                                const insertedTimeTag = await (insertedTimeParentTag as puppeteer.ElementHandle<Element>).$(
-                                    "span.hide--fromW3"
-                                );
-                                insertedTime = await page.evaluate(
-                                    (tag) => tag.textContent,
-                                    insertedTimeTag
-                                );
-                            } else {
-                                insertedTime = ''
-                            }
-
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
                                 "a.cept-tt.thread-link.linkPlain.thread-title--list"
@@ -123,6 +110,8 @@ let newDeals: {
                             username = await page.evaluate((tag) => tag.textContent, userTag);
                             username = username.replace(/\s/g, "");
 
+
+                            
                             //Inserting to array of deals
                             newDeals.push({
                                 title: title,

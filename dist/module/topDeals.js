@@ -40,6 +40,7 @@ let topDeals = [];
                 const titles = yield deals.$$("a[title]");
                 // Link of deals
                 const hrefs = yield deals.$$("a[href]");
+                topDeals.length = 0;
                 for (let index = 0; index < 5; index++) {
                     // Title to string
                     const titleDealString = yield page.evaluate((title) => title.getAttribute("title"), titles[index]);
