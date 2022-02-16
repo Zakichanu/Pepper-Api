@@ -123,12 +123,14 @@ let newDeals: {
                                 insertedTime: insertedTime
                             })
                         }
-                        //log
-                        console.log(newDeals)
-                        console.log(new Date().toLocaleString() +
-                            "------------------------------------------------------------------------------------------------"
-                        );
+                        
                     }
+
+                    //log
+                    console.log(newDeals)
+                    console.log(new Date().toLocaleString() +
+                        "------------------------------------------------------------------------------------------------"
+                    );
 
                     await browser.close();
                 } catch (error) {

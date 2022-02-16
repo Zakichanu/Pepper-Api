@@ -14,10 +14,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const puppeteer_1 = __importDefault(require("puppeteer"));
 const node_cron_1 = __importDefault(require("node-cron"));
-let hots = [];
+let newDeals = [];
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        node_cron_1.default.schedule('30 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
+        node_cron_1.default.schedule('45 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
             // Preparing puppeteer
             const browser = yield puppeteer_1.default.launch({
                 headless: true,
@@ -25,7 +25,7 @@ let hots = [];
             });
             // Opening dealabs hot tab
             const page = yield browser.newPage();
-            const URL = "https://www.dealabs.com/hot";
+            const URL = "https://www.dealabs.com/nouveaux";
             yield page.goto(URL, { waitUntil: "networkidle0" });
             // Allow cookies
             yield page.click("button.flex--grow-1.flex--fromW3-grow-0.width--fromW3-ctrl-m.space--b-2.space--fromW3-b-0");
@@ -35,16 +35,16 @@ let hots = [];
                     // Listing new hot deals
                     const listDeals = yield page.$$("div.threadGrid");
                     console.log(new Date().toLocaleString() +
-                        " ----------- EXTRACTION DES DEALS HOT -------");
+                        " ----------- EXTRACTION DES DEALS NEW -------");
                     // initiating index for looping list of deals
                     var limit = 5;
-                    hots.length = 0;
+                    newDeals.length = 0;
                     // Looping in deals
                     for (let index = 0; index < limit; index++) {
                         // Initializing variables
                         var upvote = "";
                         var imgDeal = "";
-                        var insertedTime = "";
+                        var insertedTime = "NEW";
                         var url = "";
                         var title = "";
                         var price = "";
@@ -52,7 +52,7 @@ let hots = [];
                         // Creating boolean for expired or not
                         var isExpired = false;
                         // Retrieving upvote
-                        const upvoteTag = yield listDeals[index].$("span.cept-vote-temp.vote-temp.vote-temp--hot");
+                        const upvoteTag = yield listDeals[index].$("span.cept-vote-temp.vote-temp");
                         // That's the only tag where we know the deal is expired
                         if (upvoteTag !== null) {
                             upvote = yield page.evaluate((tag) => tag.textContent, upvoteTag);
@@ -69,14 +69,6 @@ let hots = [];
                             imgDeal = yield page.evaluate((img) => img.getAttribute("src"), imgTag);
                             // Retrieving inserted time
                             const flameIconTag = yield listDeals[index].$("svg.icon.icon--flame.text--color-greyShade.space--mr-1");
-                            if (flameIconTag) {
-                                const insertedTimeParentTag = yield flameIconTag.getProperty("parentNode");
-                                const insertedTimeTag = yield insertedTimeParentTag.$("span.hide--fromW3");
-                                insertedTime = yield page.evaluate((tag) => tag.textContent, insertedTimeTag);
-                            }
-                            else {
-                                insertedTime = '';
-                            }
                             // Retrieving URL and Title
                             const titleTag = yield listDeals[index].$("a.cept-tt.thread-link.linkPlain.thread-title--list");
                             title = yield page.evaluate((tag) => tag.textContent, titleTag);
@@ -94,7 +86,7 @@ let hots = [];
                             username = yield page.evaluate((tag) => tag.textContent, userTag);
                             username = username.replace(/\s/g, "");
                             //Inserting to array of deals
-                            hots.push({
+                            newDeals.push({
                                 title: title,
                                 url: url,
                                 img: imgDeal,
@@ -104,11 +96,11 @@ let hots = [];
                                 insertedTime: insertedTime
                             });
                         }
-                        //log
-                        console.log(hots);
-                        console.log(new Date().toLocaleString() +
-                            "------------------------------------------------------------------------------------------------");
                     }
+                    //log
+                    console.log(newDeals);
+                    console.log(new Date().toLocaleString() +
+                        "------------------------------------------------------------------------------------------------");
                     yield browser.close();
                 }
                 catch (error) {
@@ -123,4 +115,4 @@ let hots = [];
         throw error;
     }
 }))();
-exports.default = { hots };
+exports.default = { newDeals };

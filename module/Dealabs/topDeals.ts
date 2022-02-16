@@ -7,7 +7,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
 (async () => {
   try {
 
-    cron.schedule('30 24 * * * *', async () => {
+    cron.schedule('0 * * * *', async () => {
 
       // Preparing puppeteer
       const browser = await puppeteer.launch({ 
