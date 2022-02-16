@@ -1,14 +1,14 @@
 import puppeteer from 'puppeteer';
 import cron from 'node-cron';
 
-let hots: {
+let newDeals: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
     insertedTime: string;
 }[] = [];
 
 (async () => {
     try {
-        cron.schedule('30 * * * * *', async () => {
+        cron.schedule('45 * * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -18,7 +18,7 @@ let hots: {
 
             // Opening dealabs hot tab
             const page = await browser.newPage();
-            const URL = "https://www.dealabs.com/hot";
+            const URL = "https://www.dealabs.com/nouveaux";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
             // Allow cookies
@@ -33,18 +33,20 @@ let hots: {
                     const listDeals = await page.$$("div.threadGrid");
                     console.log(
                         new Date().toLocaleString() +
-                        " ----------- EXTRACTION DES DEALS HOT -------"
+                        " ----------- EXTRACTION DES DEALS NEW -------"
                     );
 
                     // initiating index for looping list of deals
                     var limit = 5;
+
+                    newDeals.length = 0;
 
                     // Looping in deals
                     for (let index = 0; index < limit; index++) {
                         // Initializing variables
                         var upvote = "";
                         var imgDeal = "";
-                        var insertedTime = "";
+                        var insertedTime = "NEW";
                         var url = "";
                         var title = "";
                         var price = "";
@@ -55,7 +57,7 @@ let hots: {
 
                         // Retrieving upvote
                         const upvoteTag = await listDeals[index].$(
-                            "span.cept-vote-temp.vote-temp.vote-temp--hot"
+                            "span.cept-vote-temp.vote-temp"
                         );
 
                         // That's the only tag where we know the deal is expired
@@ -80,21 +82,6 @@ let hots: {
                             const flameIconTag = await listDeals[index].$(
                                 "svg.icon.icon--flame.text--color-greyShade.space--mr-1"
                             );
-
-                            if (flameIconTag) {
-                                const insertedTimeParentTag = await flameIconTag.getProperty(
-                                    "parentNode"
-                                );
-                                const insertedTimeTag = await (insertedTimeParentTag as puppeteer.ElementHandle<Element>).$(
-                                    "span.hide--fromW3"
-                                );
-                                insertedTime = await page.evaluate(
-                                    (tag) => tag.textContent,
-                                    insertedTimeTag
-                                );
-                            } else {
-                                insertedTime = ''
-                            }
 
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
@@ -123,8 +110,10 @@ let hots: {
                             username = await page.evaluate((tag) => tag.textContent, userTag);
                             username = username.replace(/\s/g, "");
 
+
+                            
                             //Inserting to array of deals
-                            hots.push({
+                            newDeals.push({
                                 title: title,
                                 url: url,
                                 img: imgDeal,
@@ -134,12 +123,14 @@ let hots: {
                                 insertedTime: insertedTime
                             })
                         }
-                        //log
-                        console.log(hots)
-                        console.log(new Date().toLocaleString() +
-                            "------------------------------------------------------------------------------------------------"
-                        );
+                        
                     }
+
+                    //log
+                    console.log(newDeals)
+                    console.log(new Date().toLocaleString() +
+                        "------------------------------------------------------------------------------------------------"
+                    );
 
                     await browser.close();
                 } catch (error) {
@@ -156,4 +147,4 @@ let hots: {
 
 })();
 
-export default { hots };
+export default { newDeals };

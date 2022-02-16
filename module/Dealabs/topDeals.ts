@@ -7,7 +7,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
 (async () => {
   try {
 
-    cron.schedule('30 24 * * * *', async () => {
+    cron.schedule('0 * * * *', async () => {
 
       // Preparing puppeteer
       const browser = await puppeteer.launch({ 
@@ -40,6 +40,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
         // Link of deals
         const hrefs = await deals.$$("a[href]");
 
+        topDeals.length = 0;
 
         for (let index = 0; index < 5; index++) {
           // Title to string

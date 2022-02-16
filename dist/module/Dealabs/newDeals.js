@@ -38,12 +38,13 @@ let newDeals = [];
                         " ----------- EXTRACTION DES DEALS NEW -------");
                     // initiating index for looping list of deals
                     var limit = 5;
+                    newDeals.length = 0;
                     // Looping in deals
                     for (let index = 0; index < limit; index++) {
                         // Initializing variables
                         var upvote = "";
                         var imgDeal = "";
-                        var insertedTime = "";
+                        var insertedTime = "NEW";
                         var url = "";
                         var title = "";
                         var price = "";
@@ -68,14 +69,6 @@ let newDeals = [];
                             imgDeal = yield page.evaluate((img) => img.getAttribute("src"), imgTag);
                             // Retrieving inserted time
                             const flameIconTag = yield listDeals[index].$("svg.icon.icon--flame.text--color-greyShade.space--mr-1");
-                            if (flameIconTag) {
-                                const insertedTimeParentTag = yield flameIconTag.getProperty("parentNode");
-                                const insertedTimeTag = yield insertedTimeParentTag.$("span.hide--fromW3");
-                                insertedTime = yield page.evaluate((tag) => tag.textContent, insertedTimeTag);
-                            }
-                            else {
-                                insertedTime = '';
-                            }
                             // Retrieving URL and Title
                             const titleTag = yield listDeals[index].$("a.cept-tt.thread-link.linkPlain.thread-title--list");
                             title = yield page.evaluate((tag) => tag.textContent, titleTag);
@@ -103,11 +96,11 @@ let newDeals = [];
                                 insertedTime: insertedTime
                             });
                         }
-                        //log
-                        console.log(newDeals);
-                        console.log(new Date().toLocaleString() +
-                            "------------------------------------------------------------------------------------------------");
                     }
+                    //log
+                    console.log(newDeals);
+                    console.log(new Date().toLocaleString() +
+                        "------------------------------------------------------------------------------------------------");
                     yield browser.close();
                 }
                 catch (error) {

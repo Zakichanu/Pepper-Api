@@ -38,6 +38,7 @@ let hots = [];
                         " ----------- EXTRACTION DES DEALS HOT -------");
                     // initiating index for looping list of deals
                     var limit = 5;
+                    hots.length = 0;
                     // Looping in deals
                     for (let index = 0; index < limit; index++) {
                         // Initializing variables
@@ -103,11 +104,11 @@ let hots = [];
                                 insertedTime: insertedTime
                             });
                         }
-                        //log
-                        console.log(hots);
-                        console.log(new Date().toLocaleString() +
-                            "------------------------------------------------------------------------------------------------");
                     }
+                    //log
+                    console.log(hots);
+                    console.log(new Date().toLocaleString() +
+                        "------------------------------------------------------------------------------------------------");
                     yield browser.close();
                 }
                 catch (error) {

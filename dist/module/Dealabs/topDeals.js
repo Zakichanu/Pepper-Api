@@ -18,7 +18,7 @@ const node_cron_1 = __importDefault(require("node-cron"));
 let topDeals = [];
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        node_cron_1.default.schedule('30 24 * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
+        node_cron_1.default.schedule('0 * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
             // Preparing puppeteer
             const browser = yield puppeteer_1.default.launch({
                 headless: true,
@@ -40,6 +40,7 @@ let topDeals = [];
                 const titles = yield deals.$$("a[title]");
                 // Link of deals
                 const hrefs = yield deals.$$("a[href]");
+                topDeals.length = 0;
                 for (let index = 0; index < 5; index++) {
                     // Title to string
                     const titleDealString = yield page.evaluate((title) => title.getAttribute("title"), titles[index]);
