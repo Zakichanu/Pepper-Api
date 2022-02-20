@@ -13,4 +13,16 @@ Unofficial API for the website [Dealabs](https://www.dealabs.com/) made with Nod
 
 
 
+### Run it locally
+
+- Fork the project
+- Then you need to setup a typescript environment : 
+  * ```npm install -g typescript```
+  * ```npm install -g ts-node```
+- Generate node_modules package : ```npm install```
+- Test your project by running the script : ```npm run dev```
+- And your app might run in this link : ```http://localhost:3000/```
+- Test it out with existant endpoints
+
+
 > Made by Zakichanu
