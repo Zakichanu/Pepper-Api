@@ -8,7 +8,7 @@ let newDeals: {
 
 (async () => {
     try {
-        cron.schedule('45 * * * * *', async () => {
+        cron.schedule('0 * * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -102,7 +102,7 @@ let newDeals: {
                             if (priceTag) {
                                 price = await page.evaluate((tag) => tag.textContent, priceTag);
                             } else {
-                                price = 'GRATUIT'
+                                price = 'FREE'
                             }
 
                             // Retrieving author username

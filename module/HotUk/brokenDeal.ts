@@ -1,47 +1,42 @@
 import puppeteer from 'puppeteer';
 import cron from 'node-cron';
 
-let hots: {
+
+let brokenDeals: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
     insertedTime: string;
 }[] = [];
 
 (async () => {
     try {
-        cron.schedule('4 * * * * *', async () => {
+        cron.schedule('8 * * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
                 args: ['--no-sandbox']
             });
 
-
             // Opening dealabs hot tab
             const page = await browser.newPage();
-            const URL = "https://www.dealabs.com/hot";
+            const URL = "https://www.hotukdeals.com/tag/price-glitch";
             await page.goto(URL, { waitUntil: "networkidle0" });
+
 
             // Allow cookies
             await page.click(
                 "button.flex--grow-1.flex--fromW3-grow-0.width--fromW3-ctrl-m.space--b-2.space--fromW3-b-0"
             );
 
-            // Retrieving data
             setTimeout(async () => {
                 try {
                     // Listing new hot deals
                     const listDeals = await page.$$("div.threadGrid");
-                    console.log(
-                        new Date().toLocaleString() +
-                        " ----------- EXTRACTION DES DEALS HOT -------"
-                    );
 
                     // initiating index for looping list of deals
                     var limit = 5;
 
-                    hots.length = 0;
+                    brokenDeals.length = 0;
 
-                    // Looping in deals
                     for (let index = 0; index < limit; index++) {
                         // Initializing variables
                         var upvote = "";
@@ -51,47 +46,32 @@ let hots: {
                         var title = "";
                         var price = "";
                         var username = "";
+                        const element = listDeals[index];
 
-                        // Creating boolean for expired or not
-                        var isExpired = false;
+                        // Variable if deal is expired
+                        const expiredSpan = await element.$('span.size--all-s.text--color-grey.space--l-1.space--r-2.cept-show-expired-threads.hide--toW3');
 
-                        // Retrieving upvote
-                        const upvoteTag = await listDeals[index].$(
-                            "span.cept-vote-temp.vote-temp.vote-temp--hot"
-                        );
-
-                        // That's the only tag where we know the deal is expired
-                        if (upvoteTag !== null) {
-                            upvote = await page.evaluate((tag) => tag.textContent, upvoteTag);
-                            upvote = upvote.replace(/\s/g, "");
+                        if (expiredSpan) {
+                            console.log(new Date().toLocaleString() + " Expired")
                         } else {
-                            limit++;
-                            isExpired = true;
-                        }
+                            // Retrieving upvote
+                            const upvoteTag = await element.$(
+                                "span.cept-vote-temp.vote-temp"
+                            );
 
-                        //Condition if isExpired
-                        if (!isExpired) {
                             // Retrieving image URL
-                            const imgTag = await listDeals[index].$("img.thread-image");
+                            const imgTag = await element.$("img.thread-image");
                             imgDeal = await page.evaluate(
                                 (img) => img.getAttribute("src"),
                                 imgTag
                             );
 
                             // Retrieving inserted time
-                            const flameIconTag = await listDeals[index].$(
-                                "svg.icon.icon--flame.text--color-greyShade.space--mr-1"
-                            );
+                            const insertedTimeTag = await element.$("span.metaRibbon.cept-meta-ribbon")
 
-                            if (flameIconTag) {
-                                const insertedTimeParentTag = await flameIconTag.getProperty(
-                                    "parentNode"
-                                );
-                                const insertedTimeTag = await (insertedTimeParentTag as puppeteer.ElementHandle<Element>).$(
-                                    "span.hide--fromW3"
-                                );
+                            if (insertedTimeTag) {
                                 insertedTime = await page.evaluate(
-                                    (tag) => tag.textContent,
+                                    (tag) => tag.innerText,
                                     insertedTimeTag
                                 );
                             } else {
@@ -100,14 +80,13 @@ let hots: {
 
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
-                                "a.cept-tt.thread-link.linkPlain.thread-title--list"
+                                "span.thread-link.linkPlain.thread-title--list"
                             );
-                            title = await page.evaluate((tag) => tag.textContent, titleTag);
+                            title = await page.evaluate((tag) => tag.innerText, titleTag);
                             url = await page.evaluate(
                                 (url) => url.getAttribute("href"),
                                 titleTag
                             );
-
 
                             // Retrieving price
                             const priceTag = await listDeals[index].$(
@@ -117,7 +96,7 @@ let hots: {
                             if (priceTag) {
                                 price = await page.evaluate((tag) => tag.textContent, priceTag);
                             } else {
-                                price = 'FREE'
+                                price = 'GRATUIT'
                             }
 
                             // Retrieving author username
@@ -126,7 +105,7 @@ let hots: {
                             username = username.replace(/\s/g, "");
 
                             //Inserting to array of deals
-                            hots.push({
+                            brokenDeals.push({
                                 title: title,
                                 url: url,
                                 img: imgDeal,
@@ -136,28 +115,30 @@ let hots: {
                                 insertedTime: insertedTime
                             })
                         }
-                        
                     }
 
                     //log
-                    console.log(hots)
-                    console.log(new Date().toLocaleString() +
-                        "------------------------------------------------------------------------------------------------"
-                    );
+                    if (brokenDeals.length > 0) {
+                        console.log(
+                            new Date().toLocaleString() +
+                            " ----------- EXTRACTION DES ERREURS DE PRIX -------"
+                        );
+                        console.log(brokenDeals)
+                        console.log(new Date().toLocaleString() +
+                            "------------------------------------------------------------------------------------------------"
+                        );
+                    }
 
                     await browser.close();
                 } catch (error) {
-                    console.log(error);
                     throw error;
                 }
-
             }, 2000);
-        })
+        });
+
     } catch (error) {
-        console.log(new Date().toLocaleString() + ' ' + error);
         throw error;
     }
-
 })();
 
-export default { hots };
+export default { brokenDeals };

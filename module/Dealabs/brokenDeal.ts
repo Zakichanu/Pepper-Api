@@ -9,7 +9,7 @@ let brokenDeals: {
 
 (async () => {
     try {
-        cron.schedule('50 * * * * *', async () => {
+        cron.schedule('2 * * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -52,7 +52,7 @@ let brokenDeals: {
                         const expiredSpan = await element.$('span.size--all-s.text--color-grey.space--l-1.space--r-2.cept-show-expired-threads.hide--toW3');
 
                         if (expiredSpan) {
-                            console.log(new Date().toLocaleString() + " Expiré")
+                            console.log(new Date().toLocaleString() + " Expired")
                         } else {
                             // Retrieving upvote
                             const upvoteTag = await element.$(
@@ -71,7 +71,7 @@ let brokenDeals: {
 
                             if (insertedTimeTag) {
                                 insertedTime = await page.evaluate(
-                                    (tag) => tag.textContent,
+                                    (tag) => tag.innerText,
                                     insertedTimeTag
                                 );
                             } else {
@@ -96,7 +96,7 @@ let brokenDeals: {
                             if (priceTag) {
                                 price = await page.evaluate((tag) => tag.textContent, priceTag);
                             } else {
-                                price = 'GRATUIT'
+                                price = 'FREE'
                             }
 
                             // Retrieving author username
