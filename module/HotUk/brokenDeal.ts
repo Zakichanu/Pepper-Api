@@ -46,14 +46,21 @@ let brokenDeals: {
                         var title = "";
                         var price = "";
                         var username = "";
-                        const element = listDeals[index];
+                        let element = listDeals[index];
+
+                        // Check if it is an ad
+                        const pub = await element.$("button.cept-newsletter-widget-close")
+
+                        if (pub) {
+                            limit++;
+                            index++;
+                            element = listDeals[index]
+                        }
 
                         // Variable if deal is expired
                         const expiredSpan = await element.$('span.size--all-s.text--color-grey.space--l-1.space--r-2.cept-show-expired-threads.hide--toW3');
 
-                        if (expiredSpan) {
-                            console.log(new Date().toLocaleString() + " Expired")
-                        } else {
+                        if (!expiredSpan) {
                             // Retrieving upvote
                             const upvoteTag = await element.$(
                                 "span.cept-vote-temp.vote-temp"
@@ -80,7 +87,7 @@ let brokenDeals: {
 
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
-                                "span.thread-link.linkPlain.thread-title--list"
+                                "a.cept-tt.thread-link.linkPlain.thread-title--list"
                             );
                             title = await page.evaluate((tag) => tag.innerText, titleTag);
                             url = await page.evaluate(
@@ -96,7 +103,7 @@ let brokenDeals: {
                             if (priceTag) {
                                 price = await page.evaluate((tag) => tag.textContent, priceTag);
                             } else {
-                                price = 'GRATUIT'
+                                price = 'FREE'
                             }
 
                             // Retrieving author username
@@ -118,25 +125,24 @@ let brokenDeals: {
                     }
 
                     //log
-                    if (brokenDeals.length > 0) {
-                        console.log(
-                            new Date().toLocaleString() +
-                            " ----------- EXTRACTION DES ERREURS DE PRIX -------"
-                        );
-                        console.log(brokenDeals)
-                        console.log(new Date().toLocaleString() +
-                            "------------------------------------------------------------------------------------------------"
-                        );
-                    }
-
+                    console.log(
+                        new Date().toLocaleString() +
+                        " ----------- HOTUK : EXTRACTION DES ERREURS DE PRIX -------"
+                    );
+                    console.log(brokenDeals.length)
+                    console.log(new Date().toLocaleString() +
+                        "------------------------------------------------------------------------------------------------"
+                    );
                     await browser.close();
                 } catch (error) {
+                    console.log("ICIIIII")
                     throw error;
                 }
             }, 2000);
         });
 
     } catch (error) {
+        console.log(error);
         throw error;
     }
 })();

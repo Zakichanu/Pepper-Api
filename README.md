@@ -4,10 +4,13 @@ Unofficial API for the website [Pepper](https://www.pepper.com/) made with Expre
 
 ## Table of contents
 
-- [Features](#features)
-  * [Dealabs](#dealabs)
-- [Installation](#installation)
-- [Rate Limit](#limit)
+- [Pepper Api](#pepper-api)
+  - [Table of contents](#table-of-contents)
+  - [Features](#features)
+    - [Dealabs](#dealabs)
+    - [Hotuk](#hotuk)
+  - [Installation](#installation)
+  - [Limit](#limit)
 
 
 ## Features
@@ -15,9 +18,16 @@ Unofficial API for the website [Pepper](https://www.pepper.com/) made with Expre
 ### [Dealabs](https://www.dealabs.com/)
 
 - Get the 5 top deals of the day (updated every hour) : ```https://pepper.api.zakichanu.com/dealabs/topDeals``` **OR** ```https://api.dealabs.zakichanu.com/topDeals```
-- Get 5 newest hot deals (updated every minute) : ```https://pepper.api.zakichanu.com/dealabs/newHots``` **OR**```https://api.dealabs.zakichanu.com/newHots```
+- Get 5 newest hot deals **100+ Upvotes** (updated every minute) : ```https://pepper.api.zakichanu.com/dealabs/newHots``` **OR**```https://api.dealabs.zakichanu.com/newHots```
 - Get 5 newest deals (updated every minute) : ```https://pepper.api.zakichanu.com/dealabs/newDeals``` **OR** ```https://api.dealabs.zakichanu.com/newDeals```
 - Get ALL [broken deals](https://www.dealabs.com/groupe/erreur-de-prix) (updated every minute) : ```https://pepper.api.zakichanu.com/dealabs/brokenDeals``` **OR**```https://api.dealabs.zakichanu.com/brokenDeals```
+
+### [Hotuk](https://www.hotukdeals.com/)
+
+- Get the 5 top deals of the day (updated every hour) : ```https://pepper.api.zakichanu.com/hotuk/topDeals``` 
+- Get 5 newest hot deals **100+ Upvotes** (updated every minute) : ```https://pepper.api.zakichanu.com/hotuk/newHots```
+- Get 5 newest deals (updated every minute) : ```https://pepper.api.zakichanu.com/hotuk/newDeals```
+- Get ALL [broken deals](https://www.hotukdeals.com/tag/price-glitch) (updated every minute) : ```https://pepper.api.zakichanu.com/hotuk/brokenDeals```
 
 
 

@@ -17,7 +17,7 @@ const node_cron_1 = __importDefault(require("node-cron"));
 let hots = [];
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        node_cron_1.default.schedule('30 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
+        node_cron_1.default.schedule('4 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
             // Preparing puppeteer
             const browser = yield puppeteer_1.default.launch({
                 headless: true,
@@ -35,7 +35,7 @@ let hots = [];
                     // Listing new hot deals
                     const listDeals = yield page.$$("div.threadGrid");
                     console.log(new Date().toLocaleString() +
-                        " ----------- EXTRACTION DES DEALS HOT -------");
+                        " ----------- DEALABS : EXTRACTION DES DEALS HOT -------");
                     // initiating index for looping list of deals
                     var limit = 5;
                     hots.length = 0;
@@ -49,6 +49,12 @@ let hots = [];
                         var title = "";
                         var price = "";
                         var username = "";
+                        // Check if it is an ad
+                        const pub = yield listDeals[index].$("button.cept-newsletter-widget-close");
+                        if (pub) {
+                            limit++;
+                            index++;
+                        }
                         // Creating boolean for expired or not
                         var isExpired = false;
                         // Retrieving upvote
@@ -69,14 +75,7 @@ let hots = [];
                             imgDeal = yield page.evaluate((img) => img.getAttribute("src"), imgTag);
                             // Retrieving inserted time
                             const flameIconTag = yield listDeals[index].$("svg.icon.icon--flame.text--color-greyShade.space--mr-1");
-                            if (flameIconTag) {
-                                const insertedTimeParentTag = yield flameIconTag.getProperty("parentNode");
-                                const insertedTimeTag = yield insertedTimeParentTag.$("span.hide--fromW3");
-                                insertedTime = yield page.evaluate((tag) => tag.textContent, insertedTimeTag);
-                            }
-                            else {
-                                insertedTime = '';
-                            }
+                            insertedTime = yield page.evaluate((tag) => tag.innerText, flameIconTag);
                             // Retrieving URL and Title
                             const titleTag = yield listDeals[index].$("a.cept-tt.thread-link.linkPlain.thread-title--list");
                             title = yield page.evaluate((tag) => tag.textContent, titleTag);
@@ -87,7 +86,7 @@ let hots = [];
                                 price = yield page.evaluate((tag) => tag.textContent, priceTag);
                             }
                             else {
-                                price = 'GRATUIT';
+                                price = 'FREE';
                             }
                             // Retrieving author username
                             const userTag = yield listDeals[index].$('span.thread-username');
@@ -106,7 +105,7 @@ let hots = [];
                         }
                     }
                     //log
-                    console.log(hots);
+                    console.log(hots.length);
                     console.log(new Date().toLocaleString() +
                         "------------------------------------------------------------------------------------------------");
                     yield browser.close();

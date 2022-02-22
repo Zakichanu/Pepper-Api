@@ -7,7 +7,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
 (async () => {
   try {
 
-    cron.schedule('6 * * * *', async () => {
+    cron.schedule('7 * * * *', async () => {
 
       // Preparing puppeteer
       const browser = await puppeteer.launch({ 
@@ -17,7 +17,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
 
       // Launching dealabs home page
       const page = await browser.newPage();
-      const URL = "https://www.dealabs.com";
+      const URL = "https://www.hotukdeals.com/";
       await page.goto(URL, { waitUntil: "networkidle0" });
 
       // Allow cookies
@@ -72,7 +72,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
           if (priceTag != null) {
             price = await page.evaluate(tag => tag.textContent, priceTag);
 
-            if(price === 'GRATUIT'){
+            if(price === 'FREE'){
               price = 'FREE'
             }
           } else {
@@ -88,7 +88,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
           });
           
         }
-        console.log(new Date().toLocaleString() + ' ----------- DEALABS : EXTRACTION DES TOP DEALS -------')
+        console.log(new Date().toLocaleString() + ' ----------- HOTUK : EXTRACTION DES TOP DEALS -------')
         console.log(topDeals.length)
         await browser.close();
       }, 2000);

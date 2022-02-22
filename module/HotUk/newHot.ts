@@ -1,14 +1,14 @@
 import puppeteer from 'puppeteer';
 import cron from 'node-cron';
 
-let newDeals: {
+let hots: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
     insertedTime: string;
 }[] = [];
 
 (async () => {
     try {
-        cron.schedule('0 * * * * *', async () => {
+        cron.schedule('12 * * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -18,7 +18,7 @@ let newDeals: {
 
             // Opening dealabs hot tab
             const page = await browser.newPage();
-            const URL = "https://www.dealabs.com/nouveaux";
+            const URL = "https://www.hotukdeals.com/hot";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
             // Allow cookies
@@ -33,20 +33,20 @@ let newDeals: {
                     const listDeals = await page.$$("div.threadGrid");
                     console.log(
                         new Date().toLocaleString() +
-                        " ----------- DEALABS : EXTRACTION DES DEALS NEW -------"
+                        " ----------- HOTUK : EXTRACTION DES DEALS HOT -------"
                     );
 
                     // initiating index for looping list of deals
                     var limit = 5;
 
-                    newDeals.length = 0;
+                    hots.length = 0;
 
                     // Looping in deals
                     for (let index = 0; index < limit; index++) {
                         // Initializing variables
                         var upvote = "";
                         var imgDeal = "";
-                        var insertedTime = "NEW";
+                        var insertedTime = "";
                         var url = "";
                         var title = "";
                         var price = "";
@@ -60,12 +60,13 @@ let newDeals: {
                             index++;
                         }
 
+
                         // Creating boolean for expired or not
                         var isExpired = false;
 
                         // Retrieving upvote
                         const upvoteTag = await listDeals[index].$(
-                            "span.cept-vote-temp.vote-temp"
+                            "span.cept-vote-temp.vote-temp.vote-temp--hot"
                         );
 
                         // That's the only tag where we know the deal is expired
@@ -87,8 +88,14 @@ let newDeals: {
                             );
 
                             // Retrieving inserted time
-                            const insertedTimeTag = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon")
-                            insertedTime = await page.evaluate((tag) => tag.innerText, insertedTimeTag);
+                            const flameIconTag = await listDeals[index].$(
+                                "svg.icon.icon--flame.text--color-greyShade.space--mr-1"
+                            );
+
+                            insertedTime = await page.evaluate(
+                                (tag) => tag.innerText,
+                                flameIconTag
+                            );
 
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
@@ -117,10 +124,8 @@ let newDeals: {
                             username = await page.evaluate((tag) => tag.textContent, userTag);
                             username = username.replace(/\s/g, "");
 
-
-                            
                             //Inserting to array of deals
-                            newDeals.push({
+                            hots.push({
                                 title: title,
                                 url: url,
                                 img: imgDeal,
@@ -134,7 +139,7 @@ let newDeals: {
                     }
 
                     //log
-                    console.log(newDeals.length)
+                    console.log(hots.length)
                     console.log(new Date().toLocaleString() +
                         "------------------------------------------------------------------------------------------------"
                     );
@@ -154,4 +159,4 @@ let newDeals: {
 
 })();
 
-export default { newDeals };
+export default { hots };

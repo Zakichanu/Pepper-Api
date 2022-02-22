@@ -46,14 +46,21 @@ let brokenDeals: {
                         var title = "";
                         var price = "";
                         var username = "";
-                        const element = listDeals[index];
+                        let element = listDeals[index];
+
+                        // Check if it is an ad
+                        const pub = await element.$("button.cept-newsletter-widget-close")
+
+                        if (pub) {
+                            limit++;
+                            index++;
+                            element = listDeals[index]
+                        }
 
                         // Variable if deal is expired
                         const expiredSpan = await element.$('span.size--all-s.text--color-grey.space--l-1.space--r-2.cept-show-expired-threads.hide--toW3');
 
-                        if (expiredSpan) {
-                            console.log(new Date().toLocaleString() + " Expired")
-                        } else {
+                        if (!expiredSpan) {
                             // Retrieving upvote
                             const upvoteTag = await element.$(
                                 "span.cept-vote-temp.vote-temp"
@@ -118,16 +125,14 @@ let brokenDeals: {
                     }
 
                     //log
-                    if (brokenDeals.length > 0) {
-                        console.log(
-                            new Date().toLocaleString() +
-                            " ----------- EXTRACTION DES ERREURS DE PRIX -------"
-                        );
-                        console.log(brokenDeals)
-                        console.log(new Date().toLocaleString() +
-                            "------------------------------------------------------------------------------------------------"
-                        );
-                    }
+                    console.log(
+                        new Date().toLocaleString() +
+                        " ----------- DEALABS : EXTRACTION DES ERREURS DE PRIX -------"
+                    );
+                    console.log(brokenDeals.length)
+                    console.log(new Date().toLocaleString() +
+                        "------------------------------------------------------------------------------------------------"
+                    );
 
                     await browser.close();
                 } catch (error) {
