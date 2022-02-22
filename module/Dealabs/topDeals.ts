@@ -72,7 +72,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
           if (priceTag != null) {
             price = await page.evaluate(tag => tag.textContent, priceTag);
           } else {
-            price = '';
+            price = 'FREE';
           }
 
           topDeals.push({
