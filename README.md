@@ -5,8 +5,9 @@ Unofficial API for the website [Pepper](https://www.pepper.com/) made with Expre
 ## Table of contents
 
 - [Features](#features)
- * [Dealabs](#dealabs)
+  * [Dealabs](#dealabs)
 - [Installation](#installation)
+- [Rate Limit](#limit)
 
 
 ## Features
@@ -32,8 +33,8 @@ Unofficial API for the website [Pepper](https://www.pepper.com/) made with Expre
 - Test it out with existant endpoints
 
 
-## Rate Limit
+## Limit
 
-You can call 10 requests per minute, wich means you can run 1 request each 6 seconds, I've done this on purpose just to make sure anyone crash my server 🤣
+You can call 10 requests per minute, wich means you can run 1 request each 6 seconds, I've done this on purpose just to make sure nobody make my server crash 🤣
 
 > Made by Zakichanu
