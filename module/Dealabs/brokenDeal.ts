@@ -78,7 +78,7 @@ let brokenDeals: {
 
                             if (insertedTimeTag) {
                                 insertedTime = await page.evaluate(
-                                    (tag) => tag.innerText,
+                                    (tag) => tag.outerText,
                                     insertedTimeTag
                                 );
                             } else {
