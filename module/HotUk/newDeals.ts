@@ -8,7 +8,7 @@ let newDeals: {
 
 (async () => {
     try {
-        cron.schedule('0 * * * * *', async () => {
+        cron.schedule('10 * * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -18,7 +18,7 @@ let newDeals: {
 
             // Opening dealabs hot tab
             const page = await browser.newPage();
-            const URL = "https://www.dealabs.com/nouveaux";
+            const URL = "https://www.hotukdeals.com/new";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
             // Allow cookies
@@ -33,7 +33,7 @@ let newDeals: {
                     const listDeals = await page.$$("div.threadGrid");
                     console.log(
                         new Date().toLocaleString() +
-                        " ----------- DEALABS : EXTRACTION DES DEALS NEW -------"
+                        " ----------- HOTUK : EXTRACTION DES DEALS NEW -------"
                     );
 
                     // initiating index for looping list of deals

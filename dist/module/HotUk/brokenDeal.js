@@ -17,7 +17,7 @@ const node_cron_1 = __importDefault(require("node-cron"));
 let brokenDeals = [];
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        node_cron_1.default.schedule('2 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
+        node_cron_1.default.schedule('8 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
             // Preparing puppeteer
             const browser = yield puppeteer_1.default.launch({
                 headless: true,
@@ -25,7 +25,7 @@ let brokenDeals = [];
             });
             // Opening dealabs hot tab
             const page = yield browser.newPage();
-            const URL = "https://www.dealabs.com/groupe/erreur-de-prix";
+            const URL = "https://www.hotukdeals.com/tag/price-glitch";
             yield page.goto(URL, { waitUntil: "networkidle0" });
             // Allow cookies
             yield page.click("button.flex--grow-1.flex--fromW3-grow-0.width--fromW3-ctrl-m.space--b-2.space--fromW3-b-0");
@@ -71,7 +71,7 @@ let brokenDeals = [];
                             }
                             // Retrieving URL and Title
                             const titleTag = yield listDeals[index].$("a.cept-tt.thread-link.linkPlain.thread-title--list");
-                            title = yield page.evaluate((tag) => tag.textContent, titleTag);
+                            title = yield page.evaluate((tag) => tag.innerText, titleTag);
                             url = yield page.evaluate((url) => url.getAttribute("href"), titleTag);
                             // Retrieving price
                             const priceTag = yield listDeals[index].$("span.thread-price.text--b.cept-tp.size--all-l.size--fromW3-xl");
@@ -99,19 +99,21 @@ let brokenDeals = [];
                     }
                     //log
                     console.log(new Date().toLocaleString() +
-                        " ----------- DEALABS : EXTRACTION DES ERREURS DE PRIX -------");
+                        " ----------- HOTUK : EXTRACTION DES ERREURS DE PRIX -------");
                     console.log(brokenDeals.length);
                     console.log(new Date().toLocaleString() +
                         "------------------------------------------------------------------------------------------------");
                     yield browser.close();
                 }
                 catch (error) {
+                    console.log("ICIIIII");
                     throw error;
                 }
             }), 2000);
         }));
     }
     catch (error) {
+        console.log(error);
         throw error;
     }
 }))();

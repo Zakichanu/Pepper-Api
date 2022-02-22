@@ -17,7 +17,7 @@ const node_cron_1 = __importDefault(require("node-cron"));
 let newDeals = [];
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        node_cron_1.default.schedule('45 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
+        node_cron_1.default.schedule('0 * * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
             // Preparing puppeteer
             const browser = yield puppeteer_1.default.launch({
                 headless: true,
@@ -35,7 +35,7 @@ let newDeals = [];
                     // Listing new hot deals
                     const listDeals = yield page.$$("div.threadGrid");
                     console.log(new Date().toLocaleString() +
-                        " ----------- EXTRACTION DES DEALS NEW -------");
+                        " ----------- DEALABS : EXTRACTION DES DEALS NEW -------");
                     // initiating index for looping list of deals
                     var limit = 5;
                     newDeals.length = 0;
@@ -49,6 +49,12 @@ let newDeals = [];
                         var title = "";
                         var price = "";
                         var username = "";
+                        // Check if it is an ad
+                        const pub = yield listDeals[index].$("button.cept-newsletter-widget-close");
+                        if (pub) {
+                            limit++;
+                            index++;
+                        }
                         // Creating boolean for expired or not
                         var isExpired = false;
                         // Retrieving upvote
@@ -68,7 +74,8 @@ let newDeals = [];
                             const imgTag = yield listDeals[index].$("img.thread-image");
                             imgDeal = yield page.evaluate((img) => img.getAttribute("src"), imgTag);
                             // Retrieving inserted time
-                            const flameIconTag = yield listDeals[index].$("svg.icon.icon--flame.text--color-greyShade.space--mr-1");
+                            const insertedTimeTag = yield listDeals[index].$("span.metaRibbon.cept-meta-ribbon");
+                            insertedTime = yield page.evaluate((tag) => tag.innerText, insertedTimeTag);
                             // Retrieving URL and Title
                             const titleTag = yield listDeals[index].$("a.cept-tt.thread-link.linkPlain.thread-title--list");
                             title = yield page.evaluate((tag) => tag.textContent, titleTag);
@@ -79,7 +86,7 @@ let newDeals = [];
                                 price = yield page.evaluate((tag) => tag.textContent, priceTag);
                             }
                             else {
-                                price = 'GRATUIT';
+                                price = 'FREE';
                             }
                             // Retrieving author username
                             const userTag = yield listDeals[index].$('span.thread-username');
@@ -98,7 +105,7 @@ let newDeals = [];
                         }
                     }
                     //log
-                    console.log(newDeals);
+                    console.log(newDeals.length);
                     console.log(new Date().toLocaleString() +
                         "------------------------------------------------------------------------------------------------");
                     yield browser.close();

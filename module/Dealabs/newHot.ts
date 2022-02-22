@@ -8,7 +8,7 @@ let hots: {
 
 (async () => {
     try {
-        cron.schedule('30 * * * * *', async () => {
+        cron.schedule('4 * * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -33,7 +33,7 @@ let hots: {
                     const listDeals = await page.$$("div.threadGrid");
                     console.log(
                         new Date().toLocaleString() +
-                        " ----------- EXTRACTION DES DEALS HOT -------"
+                        " ----------- DEALABS : EXTRACTION DES DEALS HOT -------"
                     );
 
                     // initiating index for looping list of deals
@@ -51,6 +51,15 @@ let hots: {
                         var title = "";
                         var price = "";
                         var username = "";
+
+                        // Check if it is an ad
+                        const pub = await listDeals[index].$("button.cept-newsletter-widget-close")
+
+                        if(pub){
+                            limit++;
+                            index++;
+                        }
+
 
                         // Creating boolean for expired or not
                         var isExpired = false;
@@ -82,21 +91,11 @@ let hots: {
                             const flameIconTag = await listDeals[index].$(
                                 "svg.icon.icon--flame.text--color-greyShade.space--mr-1"
                             );
-
-                            if (flameIconTag) {
-                                const insertedTimeParentTag = await flameIconTag.getProperty(
-                                    "parentNode"
-                                );
-                                const insertedTimeTag = await (insertedTimeParentTag as puppeteer.ElementHandle<Element>).$(
-                                    "span.hide--fromW3"
-                                );
-                                insertedTime = await page.evaluate(
-                                    (tag) => tag.textContent,
-                                    insertedTimeTag
-                                );
-                            } else {
-                                insertedTime = ''
-                            }
+                            
+                            insertedTime = await page.evaluate(
+                                (tag) => tag.innerText,
+                                flameIconTag
+                            );
 
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
@@ -117,7 +116,7 @@ let hots: {
                             if (priceTag) {
                                 price = await page.evaluate((tag) => tag.textContent, priceTag);
                             } else {
-                                price = 'GRATUIT'
+                                price = 'FREE'
                             }
 
                             // Retrieving author username
@@ -140,7 +139,7 @@ let hots: {
                     }
 
                     //log
-                    console.log(hots)
+                    console.log(hots.length)
                     console.log(new Date().toLocaleString() +
                         "------------------------------------------------------------------------------------------------"
                     );

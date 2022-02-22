@@ -18,7 +18,7 @@ const node_cron_1 = __importDefault(require("node-cron"));
 let topDeals = [];
 (() => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        node_cron_1.default.schedule('6 * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
+        node_cron_1.default.schedule('7 * * * *', () => __awaiter(void 0, void 0, void 0, function* () {
             // Preparing puppeteer
             const browser = yield puppeteer_1.default.launch({
                 headless: true,
@@ -26,7 +26,7 @@ let topDeals = [];
             });
             // Launching dealabs home page
             const page = yield browser.newPage();
-            const URL = "https://www.dealabs.com";
+            const URL = "https://www.hotukdeals.com/";
             yield page.goto(URL, { waitUntil: "networkidle0" });
             // Allow cookies
             yield page.click("button.flex--grow-1.flex--fromW3-grow-0.width--fromW3-ctrl-m.space--b-2.space--fromW3-b-0");
@@ -57,7 +57,7 @@ let topDeals = [];
                     let price = '';
                     if (priceTag != null) {
                         price = yield page.evaluate(tag => tag.textContent, priceTag);
-                        if (price === 'GRATUIT') {
+                        if (price === 'FREE') {
                             price = 'FREE';
                         }
                     }
@@ -72,7 +72,7 @@ let topDeals = [];
                         price: price
                     });
                 }
-                console.log(new Date().toLocaleString() + ' ----------- DEALABS : EXTRACTION DES TOP DEALS -------');
+                console.log(new Date().toLocaleString() + ' ----------- HOTUK : EXTRACTION DES TOP DEALS -------');
                 console.log(topDeals.length);
                 yield browser.close();
             }), 2000);
