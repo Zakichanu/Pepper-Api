@@ -90,8 +90,10 @@ let newDeals: {
                             const insertedTimeTagParent = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon")
 
 
-                            const insertedTimeTag = await insertedTimeTagParent!.$("span");
-                            insertedTime = await page.evaluate((tag) => tag.textContent, insertedTimeTag);
+                            if(insertedTimeTagParent){
+                                const insertedTimeTag = await insertedTimeTagParent.$("span");
+                                insertedTime = await page.evaluate((tag) => tag.textContent, insertedTimeTag);
+                            }
 
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(

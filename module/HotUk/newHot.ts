@@ -92,20 +92,23 @@ let hots: {
                                 "svg.icon.icon--flame.text--color-greyShade.space--mr-1"
                             );
 
-                            const insertedTimeTag = await flameIconTagParent!.$('span')
+                            if(flameIconTagParent){
+                                const insertedTimeTag = await flameIconTagParent.$('span')
 
-                            if(insertedTimeTag){
-                                insertedTime = 'Inserted : '
-                                insertedTime += await page.evaluate(
-                                    (tag) => tag.textContent,
-                                    insertedTimeTag
-                                );
+                                if(insertedTimeTag){
+                                    insertedTime = 'Inserted : '
+                                    insertedTime += await page.evaluate(
+                                        (tag) => tag.textContent,
+                                        insertedTimeTag
+                                    );
+                                }
                             }
+                            
 
                             // Retrieving expired time
                             const expiresIconTag = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-expires")
                             if(expiresIconTag){
-                                const expriesSpanTag = await expiresIconTag!.$("span");
+                                const expriesSpanTag = await expiresIconTag.$("span");
 
                                 if(expriesSpanTag){
                                     insertedTime += '\n Expires : '
