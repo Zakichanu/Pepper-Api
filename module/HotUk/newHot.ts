@@ -92,13 +92,7 @@ let hots: {
                                 "svg.icon.icon--flame.text--color-greyShade.space--mr-1"
                             );
 
-<<<<<<< HEAD
-                            insertedTime = await page.evaluate(
-                                (tag) => tag.outerText,
-                                flameIconTag
-                            );
-=======
-                            const insertedTimeTag = await flameIconTagParent.$('span')
+                            const insertedTimeTag = await flameIconTagParent!.$('span')
 
                             if(insertedTimeTag){
                                 insertedTime = 'Inserted : '
@@ -107,7 +101,6 @@ let hots: {
                                     insertedTimeTag
                                 );
                             }
->>>>>>> master
 
                             // Retrieving expired time
                             const expiresIconTag = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-expires")
