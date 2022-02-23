@@ -77,17 +77,20 @@ let brokenDeals: {
                             const insertedTimeTagParent = await element.$("span.metaRibbon.cept-meta-ribbon")
 
 
-                            const insertedTimeTag = await insertedTimeTagParent!.$("span");
+                            if(insertedTimeTagParent){
+                                const insertedTimeTag = await insertedTimeTagParent.$("span");
 
 
-                            if (insertedTimeTag) {
-                                insertedTime = await page.evaluate(
-                                    (tag) => tag.textContent,
-                                    insertedTimeTag
-                                );
-                            } else {
-                                insertedTime = ''
+                                if (insertedTimeTag) {
+                                    insertedTime = await page.evaluate(
+                                        (tag) => tag.textContent,
+                                        insertedTimeTag
+                                    );
+                                } else {
+                                    insertedTime = ''
+                                }
                             }
+                            
 
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(

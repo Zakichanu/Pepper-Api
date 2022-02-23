@@ -5,7 +5,8 @@
   "main": "dist/controller.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon controller.ts"
+    "start": "pm2 start npm --name 'pepperApi' -- start",
+    "dev":"nodemon controller.ts"
   },
   "author": "Zakichanu",
   "license": "ISC",
