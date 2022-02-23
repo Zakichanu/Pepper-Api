@@ -5,8 +5,7 @@
   "main": "dist/controller.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node dist/controller.js",
-    "dev": "tsc -w & nodemon dist/controller.js"
+    "start": "nodemon controller.ts"
   },
   "author": "Zakichanu",
   "license": "ISC",
