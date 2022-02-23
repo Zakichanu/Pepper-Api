@@ -88,15 +88,31 @@ let hots: {
                             );
 
                             // Retrieving inserted time
-                            const flameIconTag = await listDeals[index].$(
+                            const flameIconTagParent = await listDeals[index].$(
                                 "svg.icon.icon--flame.text--color-greyShade.space--mr-1"
                             );
 
-                            insertedTime = await page.evaluate(
-                                (tag) => tag.innerText,
-                                flameIconTag
-                            );
+                            const insertedTimeTag = await flameIconTagParent.$('span')
 
+                            if(insertedTimeTag){
+                                insertedTime = 'Inserted : '
+                                insertedTime += await page.evaluate(
+                                    (tag) => tag.textContent,
+                                    insertedTimeTag
+                                );
+                            }
+
+                            // Retrieving expired time
+                            const expiresIconTag = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-expires")
+                            const expriesSpanTag = await expiresIconTag.$("span");
+
+                            if(expriesSpanTag){
+                                insertedTime += '\n Expires : '
+                                insertedTime += await page.evaluate(
+                                    (tag) => tag.textContent,
+                                    expriesSpanTag
+                                );
+                            }
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
                                 "a.cept-tt.thread-link.linkPlain.thread-title--list"

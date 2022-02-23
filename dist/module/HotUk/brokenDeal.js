@@ -64,14 +64,14 @@ let brokenDeals = [];
                             // Retrieving inserted time
                             const insertedTimeTag = yield element.$("span.metaRibbon.cept-meta-ribbon");
                             if (insertedTimeTag) {
-                                insertedTime = yield page.evaluate((tag) => tag.innerText, insertedTimeTag);
+                                insertedTime = yield page.evaluate((tag) => tag.outerText, insertedTimeTag);
                             }
                             else {
                                 insertedTime = '';
                             }
                             // Retrieving URL and Title
                             const titleTag = yield listDeals[index].$("a.cept-tt.thread-link.linkPlain.thread-title--list");
-                            title = yield page.evaluate((tag) => tag.innerText, titleTag);
+                            title = yield page.evaluate((tag) => tag.outerText, titleTag);
                             url = yield page.evaluate((url) => url.getAttribute("href"), titleTag);
                             // Retrieving price
                             const priceTag = yield listDeals[index].$("span.thread-price.text--b.cept-tp.size--all-l.size--fromW3-xl");

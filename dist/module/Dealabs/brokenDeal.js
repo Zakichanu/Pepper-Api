@@ -64,7 +64,7 @@ let brokenDeals = [];
                             // Retrieving inserted time
                             const insertedTimeTag = yield element.$("span.metaRibbon.cept-meta-ribbon");
                             if (insertedTimeTag) {
-                                insertedTime = yield page.evaluate((tag) => tag.innerText, insertedTimeTag);
+                                insertedTime = yield page.evaluate((tag) => tag.outerText, insertedTimeTag);
                             }
                             else {
                                 insertedTime = '';
