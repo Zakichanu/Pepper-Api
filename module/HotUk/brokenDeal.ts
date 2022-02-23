@@ -78,7 +78,7 @@ let brokenDeals: {
 
                             if (insertedTimeTag) {
                                 insertedTime = await page.evaluate(
-                                    (tag) => tag.innerText,
+                                    (tag) => tag.outerText,
                                     insertedTimeTag
                                 );
                             } else {
@@ -89,7 +89,7 @@ let brokenDeals: {
                             const titleTag = await listDeals[index].$(
                                 "a.cept-tt.thread-link.linkPlain.thread-title--list"
                             );
-                            title = await page.evaluate((tag) => tag.innerText, titleTag);
+                            title = await page.evaluate((tag) => tag.outerText, titleTag);
                             url = await page.evaluate(
                                 (url) => url.getAttribute("href"),
                                 titleTag

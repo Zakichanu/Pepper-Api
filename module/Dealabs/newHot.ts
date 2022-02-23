@@ -93,7 +93,7 @@ let hots: {
                             );
                             
                             insertedTime = await page.evaluate(
-                                (tag) => tag.innerText,
+                                (tag) => tag.outerText,
                                 flameIconTag
                             );
 
