@@ -75,7 +75,7 @@ let hots = [];
                             imgDeal = yield page.evaluate((img) => img.getAttribute("src"), imgTag);
                             // Retrieving inserted time
                             const flameIconTag = yield listDeals[index].$("svg.icon.icon--flame.text--color-greyShade.space--mr-1");
-                            insertedTime = yield page.evaluate((tag) => tag.innerText, flameIconTag);
+                            insertedTime = yield page.evaluate((tag) => tag.outerText, flameIconTag);
                             // Retrieving URL and Title
                             const titleTag = yield listDeals[index].$("a.cept-tt.thread-link.linkPlain.thread-title--list");
                             title = yield page.evaluate((tag) => tag.textContent, titleTag);

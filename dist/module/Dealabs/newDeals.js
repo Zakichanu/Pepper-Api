@@ -75,7 +75,7 @@ let newDeals = [];
                             imgDeal = yield page.evaluate((img) => img.getAttribute("src"), imgTag);
                             // Retrieving inserted time
                             const insertedTimeTag = yield listDeals[index].$("span.metaRibbon.cept-meta-ribbon");
-                            insertedTime = yield page.evaluate((tag) => tag.innerText, insertedTimeTag);
+                            insertedTime = yield page.evaluate((tag) => tag.outerText, insertedTimeTag);
                             // Retrieving URL and Title
                             const titleTag = yield listDeals[index].$("a.cept-tt.thread-link.linkPlain.thread-title--list");
                             title = yield page.evaluate((tag) => tag.textContent, titleTag);
