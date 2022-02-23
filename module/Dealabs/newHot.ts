@@ -118,6 +118,13 @@ let hots: {
 
                             
                             
+<<<<<<< HEAD
+                            insertedTime = await page.evaluate(
+                                (tag) => tag.outerText,
+                                flameIconTag
+                            );
+=======
+>>>>>>> master
 
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(

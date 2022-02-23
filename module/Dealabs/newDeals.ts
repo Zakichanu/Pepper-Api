@@ -87,11 +87,16 @@ let newDeals: {
                             );
 
                             // Retrieving inserted time
-                            const insertedTimeTagParent = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon")
+<<<<<<< HEAD
+                            const insertedTimeTag = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon")
+                            insertedTime = await page.evaluate((tag) => tag.outerText, insertedTimeTag);
+=======
+                            const insertedTimeTagParent = await element.$("span.metaRibbon.cept-meta-ribbon")
 
 
                             const insertedTimeTag = await insertedTimeTagParent!.$("span");
                             insertedTime = await page.evaluate((tag) => tag.textContent, insertedTimeTag);
+>>>>>>> master
 
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
