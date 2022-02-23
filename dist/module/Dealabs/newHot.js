@@ -74,9 +74,20 @@ let hots = [];
                             const imgTag = yield listDeals[index].$("img.thread-image");
                             imgDeal = yield page.evaluate((img) => img.getAttribute("src"), imgTag);
                             // Retrieving inserted time
-                            const flameIconTag = yield listDeals[index].$("svg.icon.icon--flame.text--color-greyShade.space--mr-1");
-                            insertedTime = yield page.evaluate((tag) => tag.innerText, flameIconTag);
-                            // Retrieving URL and Title
+                            const flameIconTagParent = yield listDeals[index].$("svg.icon.icon--flame.text--color-greyShade.space--mr-1");
+                            const insertedTimeTag = yield flameIconTagParent.$('span');
+                            if (insertedTimeTag) {
+                                insertedTime = 'Inserted : ';
+                                insertedTime += yield page.evaluate((tag) => tag.textContent, insertedTimeTag);
+                            }
+                            // Retrieving expired time
+                            const expiresIconTag = yield listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-expires");
+                            const expriesSpanTag = yield expiresIconTag.$("span");
+                            if (expriesSpanTag) {
+                                insertedTime += '\n Expires : ';
+                                insertedTime += yield page.evaluate((tag) => tag.textContent, expriesSpanTag);
+                            }
+                            insertedTime = yield page.evaluate((tag) => tag.outerText, flameIconTag);
                             const titleTag = yield listDeals[index].$("a.cept-tt.thread-link.linkPlain.thread-title--list");
                             title = yield page.evaluate((tag) => tag.textContent, titleTag);
                             url = yield page.evaluate((url) => url.getAttribute("href"), titleTag);

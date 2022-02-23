@@ -74,11 +74,19 @@ let brokenDeals: {
                             );
 
                             // Retrieving inserted time
-                            const insertedTimeTag = await element.$("span.metaRibbon.cept-meta-ribbon")
+                            const insertedTimeTagParent = await element.$("span.metaRibbon.cept-meta-ribbon")
+
+
+                            const insertedTimeTag = await insertedTimeTagParent.$("span");
+
 
                             if (insertedTimeTag) {
                                 insertedTime = await page.evaluate(
+<<<<<<< HEAD
                                     (tag) => tag.outerText,
+=======
+                                    (tag) => tag.textContent,
+>>>>>>> master
                                     insertedTimeTag
                                 );
                             } else {
@@ -89,7 +97,11 @@ let brokenDeals: {
                             const titleTag = await listDeals[index].$(
                                 "a.cept-tt.thread-link.linkPlain.thread-title--list"
                             );
+<<<<<<< HEAD
                             title = await page.evaluate((tag) => tag.outerText, titleTag);
+=======
+                            title = await page.evaluate((tag) => tag.textContent, titleTag);
+>>>>>>> master
                             url = await page.evaluate(
                                 (url) => url.getAttribute("href"),
                                 titleTag

@@ -62,9 +62,10 @@ let brokenDeals = [];
                             const imgTag = yield element.$("img.thread-image");
                             imgDeal = yield page.evaluate((img) => img.getAttribute("src"), imgTag);
                             // Retrieving inserted time
-                            const insertedTimeTag = yield element.$("span.metaRibbon.cept-meta-ribbon");
+                            const insertedTimeTagParent = yield element.$("span.metaRibbon.cept-meta-ribbon");
+                            const insertedTimeTag = yield insertedTimeTagParent.$("span");
                             if (insertedTimeTag) {
-                                insertedTime = yield page.evaluate((tag) => tag.innerText, insertedTimeTag);
+                                insertedTime = yield page.evaluate((tag) => tag.outerText, insertedTimeTag);
                             }
                             else {
                                 insertedTime = '';

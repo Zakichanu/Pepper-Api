@@ -74,7 +74,10 @@ let brokenDeals: {
                             );
 
                             // Retrieving inserted time
-                            const insertedTimeTag = await element.$("span.metaRibbon.cept-meta-ribbon")
+                            const insertedTimeTagParent = await element.$("span.metaRibbon.cept-meta-ribbon")
+
+
+                            const insertedTimeTag = await insertedTimeTagParent.$("span");
 
                             if (insertedTimeTag) {
                                 insertedTime = await page.evaluate(
