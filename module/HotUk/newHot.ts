@@ -111,15 +111,18 @@ let hots: {
 
                             // Retrieving expired time
                             const expiresIconTag = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-expires")
-                            const expriesSpanTag = await expiresIconTag.$("span");
+                            if(expiresIconTag){
+                                const expriesSpanTag = await expiresIconTag!.$("span");
 
-                            if(expriesSpanTag){
-                                insertedTime += '\n Expires : '
-                                insertedTime += await page.evaluate(
-                                    (tag) => tag.textContent,
-                                    expriesSpanTag
-                                );
+                                if(expriesSpanTag){
+                                    insertedTime += '\n Expires : '
+                                    insertedTime += await page.evaluate(
+                                        (tag) => tag.textContent,
+                                        expriesSpanTag
+                                    );
+                                }
                             }
+                            
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
                                 "a.cept-tt.thread-link.linkPlain.thread-title--list"

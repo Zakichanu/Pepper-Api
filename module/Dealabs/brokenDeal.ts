@@ -77,7 +77,7 @@ let brokenDeals: {
                             const insertedTimeTagParent = await element.$("span.metaRibbon.cept-meta-ribbon")
 
 
-                            const insertedTimeTag = await insertedTimeTagParent.$("span");
+                            const insertedTimeTag = await insertedTimeTagParent!.$("span");
 
                             if (insertedTimeTag) {
                                 insertedTime = await page.evaluate(
