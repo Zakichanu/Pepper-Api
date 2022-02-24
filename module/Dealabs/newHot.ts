@@ -3,7 +3,7 @@ import cron from 'node-cron';
 
 let hots: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
-    insertedTime: string;
+    insertedTime: string, expiredTime: string;
 }[] = [];
 
 (async () => {
@@ -47,6 +47,7 @@ let hots: {
                         var upvote = "";
                         var imgDeal = "";
                         var insertedTime = "";
+                        var expiredTime = "";
                         var url = "";
                         var title = "";
                         var price = "";
@@ -89,15 +90,14 @@ let hots: {
 
                             // Retrieving inserted time
                             const flameIconTagParent = await listDeals[index].$(
-                                "svg.icon.icon--flame.text--color-greyShade.space--mr-1"
+                                "span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-hot"
                             );
 
                             if (flameIconTagParent) {
                                 const insertedTimeTag = await flameIconTagParent.$('span')
 
                                 if (insertedTimeTag) {
-                                    insertedTime = 'Inserted : '
-                                    insertedTime += await page.evaluate(
+                                    insertedTime = await page.evaluate(
                                         (tag) => tag.textContent,
                                         insertedTimeTag
                                     );
@@ -111,8 +111,7 @@ let hots: {
                                 const expriesSpanTag = await expiresIconTag.$("span");
 
                                 if (expriesSpanTag) {
-                                    insertedTime += '\n Expires : '
-                                    insertedTime += await page.evaluate(
+                                    expiredTime = await page.evaluate(
                                         (tag) => tag.textContent,
                                         expriesSpanTag
                                     );
@@ -155,7 +154,8 @@ let hots: {
                                 upvote: upvote,
                                 price: price,
                                 username: username,
-                                insertedTime: insertedTime
+                                insertedTime: insertedTime,
+                                expiredTime: expiredTime
                             })
                         }
 
