@@ -4,7 +4,7 @@ import cron from 'node-cron';
 
 let brokenDeals: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
-    insertedTime: string;
+    insertedTime: string, expiredTime: string;
 }[] = [];
 
 (async () => {
@@ -42,6 +42,7 @@ let brokenDeals: {
                         var upvote = "";
                         var imgDeal = "";
                         var insertedTime = "";
+                        var expiredTime = "";
                         var url = "";
                         var title = "";
                         var price = "";
@@ -90,6 +91,20 @@ let brokenDeals: {
                                     insertedTime = ''
                                 }
                             }
+
+                            // Retrieving expired time
+                            const expiresIconTag = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-expires")
+                            if (expiresIconTag) {
+                                const expriesSpanTag = await expiresIconTag.$("span");
+
+                                if (expriesSpanTag) {
+                                    expiredTime = await page.evaluate(
+                                        (tag) => tag.textContent,
+                                        expriesSpanTag
+                                    );
+                                }
+                            }
+
                             
 
                             // Retrieving URL and Title
@@ -125,7 +140,8 @@ let brokenDeals: {
                                 upvote: upvote,
                                 price: price,
                                 username: username,
-                                insertedTime: insertedTime
+                                insertedTime: insertedTime,
+                                expiredTime: expiredTime
                             })
                         }
                     }

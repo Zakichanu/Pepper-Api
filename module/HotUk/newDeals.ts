@@ -3,7 +3,7 @@ import cron from 'node-cron';
 
 let newDeals: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
-    insertedTime: string;
+    insertedTime: string, expiredTime: string;
 }[] = [];
 
 (async () => {
@@ -47,6 +47,7 @@ let newDeals: {
                         var upvote = "";
                         var imgDeal = "";
                         var insertedTime = "NEW";
+                        var expiredTime = "";
                         var url = "";
                         var title = "";
                         var price = "";
@@ -87,12 +88,25 @@ let newDeals: {
                             );
 
                             // Retrieving inserted time
-                            const insertedTimeTagParent = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon")
+                            const insertedTimeTagParent = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-posted")
 
 
                             if(insertedTimeTagParent){
                                 const insertedTimeTag = await insertedTimeTagParent.$("span");
                                 insertedTime = await page.evaluate((tag) => tag.textContent, insertedTimeTag);
+                            }
+
+                            // Retrieving expired time
+                            const expiresIconTag = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-expires")
+                            if (expiresIconTag) {
+                                const expriesSpanTag = await expiresIconTag.$("span");
+
+                                if (expriesSpanTag) {
+                                    expiredTime = await page.evaluate(
+                                        (tag) => tag.textContent,
+                                        expriesSpanTag
+                                    );
+                                }
                             }
 
                             // Retrieving URL and Title
@@ -132,7 +146,8 @@ let newDeals: {
                                 upvote: upvote,
                                 price: price,
                                 username: username,
-                                insertedTime: insertedTime
+                                insertedTime: insertedTime,
+                                expiredTime: expiredTime
                             })
                         }
                         
