@@ -11,46 +11,118 @@ import hotukTopDeal from "./module/HotUk/topDeals"
 const myApp = express();
 
 myApp.get('/dealabs/topDeals', (req, res) => {
-    res.json(dealabsTopDeal.topDeals);
+    if (dealabsTopDeal.topDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: dealabsTopDeal.topDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: dealabsTopDeal.topDeals
+        })
+    }
 })
 
 myApp.get('/hotuk/topDeals', (req, res) => {
-    res.json(hotukTopDeal.topDeals);
+    if (hotukTopDeal.topDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: hotukTopDeal.topDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: hotukTopDeal.topDeals
+        })
+    }
 })
 
 
 myApp.get('/dealabs/newHots', (req, res) => {
-    res.json(dealabsNewHot.hots)
+    if (dealabsNewHot.hots.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: dealabsNewHot.hots
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: dealabsNewHot.hots
+        })
+    }
 })
 
 myApp.get('/hotuk/newHots', (req, res) => {
-    res.json(hotukNewHot.hots)
+    if (hotukNewHot.hots.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: hotukNewHot.hots
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: hotukNewHot.hots
+        })
+    }
 })
 
 myApp.get('/dealabs/newDeals', (req, res) => {
-    res.json(dealabsNewDeal.newDeals)
+    if (dealabsNewDeal.newDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: dealabsNewDeal.newDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: dealabsNewDeal.newDeals
+        })
+    }
 })
 
 myApp.get('/hotuk/newDeals', (req, res) => {
-    res.json(hotukNewDeals.newDeals)
+    if (hotukNewDeals.newDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: hotukNewDeals.newDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: hotukNewDeals.newDeals
+        })
+    }
 })
 
 myApp.get('/dealabs/brokenDeals', (req, res) => {
-    if(delabsBrokenDeals.brokenDeals.length > 0) {
-        res.json(delabsBrokenDeals.brokenDeals)
-    }else{
-        res.json({ information: "ALL EXPIRED" })
+    if (delabsBrokenDeals.brokenDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: delabsBrokenDeals.brokenDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: delabsBrokenDeals.brokenDeals
+        })
     }
-    
+
 })
 
 myApp.get('/hotuk/brokenDeals', (req, res) => {
-    if(hotukBrokenDeals.brokenDeals.length > 0) {
-        res.json(hotukBrokenDeals.brokenDeals)
-    }else{
-        res.json({ information: "ALL EXPIRED" })
+    if (hotukBrokenDeals.brokenDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: hotukBrokenDeals.brokenDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: hotukBrokenDeals.brokenDeals
+        })
     }
-    
+
 })
 
 const port = process.env.PORT || 3000;
