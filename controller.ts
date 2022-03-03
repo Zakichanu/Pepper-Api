@@ -7,6 +7,10 @@ import hotukBrokenDeals from "./module/HotUk/brokenDeal"
 import hotukNewDeals from "./module/HotUk/newDeals"
 import hotukNewHot from "./module/HotUk/newHot"
 import hotukTopDeal from "./module/HotUk/topDeals"
+import mydealzTopDeal from "./module/MyDealz/topDeals"
+import mydealzBrokenDeals from "./module/MyDealz/brokenDeal";
+import mydealzNewDeals from "./module/MyDealz/newDeals"
+import mydealzNewHot  from "./module/MyDealz/newHot"
 
 const myApp = express();
 
@@ -34,6 +38,20 @@ myApp.get('/hotuk/topDeals', (req, res) => {
         res.json({ 
             information: 'NO DEAL FOUND',
             data: hotukTopDeal.topDeals
+        })
+    }
+})
+
+myApp.get('/mydealz/topDeals', (req, res) => {
+    if (mydealzTopDeal.topDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: mydealzTopDeal.topDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: mydealzTopDeal.topDeals
         })
     }
 })
@@ -67,6 +85,20 @@ myApp.get('/hotuk/newHots', (req, res) => {
     }
 })
 
+myApp.get('/mydealz/newHots', (req, res) => {
+    if (mydealzNewHot.hots.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: mydealzNewHot.hots
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: mydealzNewHot.hots
+        })
+    }
+})
+
 myApp.get('/dealabs/newDeals', (req, res) => {
     if (dealabsNewDeal.newDeals.length > 0) {
         res.json({
@@ -91,6 +123,20 @@ myApp.get('/hotuk/newDeals', (req, res) => {
         res.json({ 
             information: 'NO DEAL FOUND',
             data: hotukNewDeals.newDeals
+        })
+    }
+})
+
+myApp.get('/mydealz/newDeals', (req, res) => {
+    if (mydealzNewDeals.newDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: mydealzNewDeals.newDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: mydealzNewDeals.newDeals
         })
     }
 })
@@ -120,6 +166,21 @@ myApp.get('/hotuk/brokenDeals', (req, res) => {
         res.json({ 
             information: 'NO DEAL FOUND',
             data: hotukBrokenDeals.brokenDeals
+        })
+    }
+
+})
+
+myApp.get('/mydealz/brokenDeals', (req, res) => {
+    if (mydealzBrokenDeals.brokenDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: mydealzBrokenDeals.brokenDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: mydealzBrokenDeals.brokenDeals
         })
     }
 
