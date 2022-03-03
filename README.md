@@ -8,6 +8,7 @@ Unofficial API for the website [Pepper](https://www.pepper.com/) made with Expre
   - [Table of contents](#table-of-contents)
   - [Features](#features)
     - [Dealabs](#dealabs)
+    - [MyDealz](#mydealz)
     - [Hotuk](#hotuk)
   - [Installation](#installation)
   - [Limit](#limit)
@@ -21,6 +22,13 @@ Unofficial API for the website [Pepper](https://www.pepper.com/) made with Expre
 - Get 5 newest hot deals **100+ Upvotes** (updated every minute) : ```https://pepper.api.zakichanu.com/dealabs/newHots``` **OR**```https://api.dealabs.zakichanu.com/newHots```
 - Get 5 newest deals (updated every minute) : ```https://pepper.api.zakichanu.com/dealabs/newDeals``` **OR** ```https://api.dealabs.zakichanu.com/newDeals```
 - Get ALL [broken deals](https://www.dealabs.com/groupe/erreur-de-prix) (updated every minute) : ```https://pepper.api.zakichanu.com/dealabs/brokenDeals``` **OR**```https://api.dealabs.zakichanu.com/brokenDeals```
+
+### [MyDealz](https://www.mydealz.de/)
+
+- Get the 5 top deals of the day (updated every hour) : ```https://pepper.api.zakichanu.com/mydealz/topDeals``` 
+- Get 5 newest hot deals **100+ Upvotes** (updated every minute) : ```https://pepper.api.zakichanu.com/mydealz/newHots```
+- Get 5 newest deals (updated every minute) : ```https://pepper.api.zakichanu.com/mydealz/newDeals```
+- Get ALL [broken deals](https://www.mydealz.de/gruppe/preisfehler) (updated every minute) : ```https://pepper.api.zakichanu.com/mydealz/brokenDeals```
 
 ### [Hotuk](https://www.hotukdeals.com/)
 
