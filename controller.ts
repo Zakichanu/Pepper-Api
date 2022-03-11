@@ -11,6 +11,9 @@ import mydealzTopDeal from "./module/MyDealz/topDeals"
 import mydealzBrokenDeals from "./module/MyDealz/brokenDeal";
 import mydealzNewDeals from "./module/MyDealz/newDeals"
 import mydealzNewHot  from "./module/MyDealz/newHot"
+import chollometroTopDeal from "./module/Chollometro/topDeals"
+import chollometroNewDeals from "./module/Chollometro/newDeals"
+import chollometroNewHot  from "./module/Chollometro/newHot"
 
 const myApp = express();
 
@@ -52,6 +55,20 @@ myApp.get('/mydealz/topDeals', (req, res) => {
         res.json({ 
             information: 'NO DEAL FOUND',
             data: mydealzTopDeal.topDeals
+        })
+    }
+})
+
+myApp.get('/chollometro/topDeals', (req, res) => {
+    if (chollometroTopDeal.topDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: chollometroTopDeal.topDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: chollometroTopDeal.topDeals
         })
     }
 })
@@ -99,6 +116,20 @@ myApp.get('/mydealz/newHots', (req, res) => {
     }
 })
 
+myApp.get('/chollometro/newHots', (req, res) => {
+    if (chollometroNewHot.hots.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: chollometroNewHot.hots
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: chollometroNewHot.hots
+        })
+    }
+})
+
 myApp.get('/dealabs/newDeals', (req, res) => {
     if (dealabsNewDeal.newDeals.length > 0) {
         res.json({
@@ -137,6 +168,20 @@ myApp.get('/mydealz/newDeals', (req, res) => {
         res.json({ 
             information: 'NO DEAL FOUND',
             data: mydealzNewDeals.newDeals
+        })
+    }
+})
+
+myApp.get('/chollometro/newDeals', (req, res) => {
+    if (chollometroNewDeals.newDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: chollometroNewDeals.newDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: chollometroNewDeals.newDeals
         })
     }
 })
