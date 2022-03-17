@@ -14,7 +14,9 @@ import mydealzNewHot  from "./module/MyDealz/newHot"
 import chollometroTopDeal from "./module/Chollometro/topDeals"
 import chollometroNewDeals from "./module/Chollometro/newDeals"
 import chollometroNewHot  from "./module/Chollometro/newHot"
-
+import nlPepperTopDeal from "./module/NLPepper/topDeals"
+import nlPepperNewDeals from "./module/NLPepper/newDeals"
+import nlPepperNewHot  from "./module/NLPepper/newHot"
 const myApp = express();
 
 myApp.get('/dealabs/topDeals', (req, res) => {
@@ -73,6 +75,21 @@ myApp.get('/chollometro/topDeals', (req, res) => {
     }
 })
 
+myApp.get('/nl-pepper/topDeals', (req, res) => {
+    if (nlPepperTopDeal.topDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: nlPepperTopDeal.topDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: nlPepperTopDeal.topDeals
+        })
+    }
+})
+
+
 
 myApp.get('/dealabs/newHots', (req, res) => {
     if (dealabsNewHot.hots.length > 0) {
@@ -130,6 +147,20 @@ myApp.get('/chollometro/newHots', (req, res) => {
     }
 })
 
+myApp.get('/nl-pepper/newHots', (req, res) => {
+    if (nlPepperNewHot.hots.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: nlPepperNewHot.hots
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: nlPepperNewHot.hots
+        })
+    }
+})
+
 myApp.get('/dealabs/newDeals', (req, res) => {
     if (dealabsNewDeal.newDeals.length > 0) {
         res.json({
@@ -182,6 +213,20 @@ myApp.get('/chollometro/newDeals', (req, res) => {
         res.json({ 
             information: 'NO DEAL FOUND',
             data: chollometroNewDeals.newDeals
+        })
+    }
+})
+
+myApp.get('/nl-pepper/newDeals', (req, res) => {
+    if (nlPepperNewDeals.newDeals.length > 0) {
+        res.json({
+            information: 'DEALS FOUND',
+            data: nlPepperNewDeals.newDeals
+        })
+    } else {
+        res.json({ 
+            information: 'NO DEAL FOUND',
+            data: nlPepperNewDeals.newDeals
         })
     }
 })

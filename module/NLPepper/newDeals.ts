@@ -1,14 +1,14 @@
 import puppeteer from 'puppeteer';
 import cron from 'node-cron';
 
-let hots: {
+let newDeals: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
     insertedTime: string, expiredTime: string;
 }[] = [];
 
 (async () => {
     try {
-        cron.schedule('4 * * * * *', async () => {
+        cron.schedule('28 * * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -18,7 +18,7 @@ let hots: {
 
             // Opening dealabs hot tab
             const page = await browser.newPage();
-            const URL = "https://www.dealabs.com/hot";
+            const URL = "https://nl.pepper.com/nieuw";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
             // Allow cookies
@@ -31,22 +31,19 @@ let hots: {
                 try {
                     // Listing new hot deals
                     const listDeals = await page.$$("div.threadGrid");
-                    console.log(
-                        new Date().toLocaleString() +
-                        " ----------- DEALABS : EXTRACTION DES DEALS HOT -------"
-                    );
+                    
 
                     // initiating index for looping list of deals
                     var limit = 5;
 
-                    hots.length = 0;
+                    newDeals.length = 0;
 
                     // Looping in deals
                     for (let index = 0; index < limit; index++) {
                         // Initializing variables
                         var upvote = "";
                         var imgDeal = "";
-                        var insertedTime = "";
+                        var insertedTime = "NEW";
                         var expiredTime = "";
                         var url = "";
                         var title = "";
@@ -54,20 +51,20 @@ let hots: {
                         var username = "";
 
                         // Check if it is an ad
-                        const pub = await listDeals[index].$("button.cept-newsletter-widget-close")
+                        const pubEmail = await listDeals[index].$("button.cept-newsletter-widget-close")
+                        const pubTelegram = await listDeals[index].$("button.cept-telegram-widget-close")
 
-                        if (pub) {
+                        if(pubEmail || pubTelegram){
                             limit++;
                             index++;
                         }
-
 
                         // Creating boolean for expired or not
                         var isExpired = false;
 
                         // Retrieving upvote
                         const upvoteTag = await listDeals[index].$(
-                            "span.cept-vote-temp.vote-temp.vote-temp--hot"
+                            "span.cept-vote-temp.vote-temp"
                         );
 
                         // That's the only tag where we know the deal is expired
@@ -83,27 +80,20 @@ let hots: {
                         if (!isExpired) {
                             // Retrieving image URL
                             const imgTag = await listDeals[index].$("img.thread-image");
+                            
                             imgDeal = await page.evaluate(
                                 (img) => img.getAttribute("src"),
                                 imgTag
                             );
 
                             // Retrieving inserted time
-                            const flameIconTagParent = await listDeals[index].$(
-                                "span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-hot"
-                            );
+                            const insertedTimeTagParent = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-posted")
 
-                            if (flameIconTagParent) {
-                                const insertedTimeTag = await flameIconTagParent.$('span')
 
-                                if (insertedTimeTag) {
-                                    insertedTime = await page.evaluate(
-                                        (tag) => tag.textContent,
-                                        insertedTimeTag
-                                    );
-                                }
+                            if(insertedTimeTagParent){
+                                const insertedTimeTag = await insertedTimeTagParent.$("span");
+                                insertedTime = await page.evaluate((tag) => tag.textContent, insertedTimeTag);
                             }
-
 
                             // Retrieving expired time
                             const expiresIconTag = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-expires")
@@ -117,7 +107,6 @@ let hots: {
                                     );
                                 }
                             }
-
 
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
@@ -146,8 +135,10 @@ let hots: {
                             username = await page.evaluate((tag) => tag.textContent, userTag);
                             username = username.replace(/\s/g, "");
 
+
+                            
                             //Inserting to array of deals
-                            hots.push({
+                            newDeals.push({
                                 title: title,
                                 url: url,
                                 img: imgDeal,
@@ -158,11 +149,17 @@ let hots: {
                                 expiredTime: expiredTime
                             })
                         }
-
+                        
                     }
 
                     //log
-                    console.log(hots.length)
+                    console.log(
+                        new Date().toLocaleString() +
+                        " ----------- NL.PEPPER : EXTRACTION DES DEALS NEW -------"
+                    );
+                    console.log(newDeals.length)
+
+                    
                 
                 } catch (error) {
                     console.log(error);
@@ -179,4 +176,4 @@ let hots: {
 
 })();
 
-export default { hots };
+export default { newDeals };

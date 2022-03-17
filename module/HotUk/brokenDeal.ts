@@ -152,13 +152,12 @@ let brokenDeals: {
                         " ----------- HOTUK : EXTRACTION DES ERREURS DE PRIX -------"
                     );
                     console.log(brokenDeals.length)
-                    console.log(new Date().toLocaleString() +
-                        "------------------------------------------------------------------------------------------------"
-                    );
-                    await browser.close();
+                
                 } catch (error) {
-                    console.log("ICIIIII")
+                    console.log(error);
                     throw error;
+                }finally{
+                    await browser.close();
                 }
             }, 2000);
         });

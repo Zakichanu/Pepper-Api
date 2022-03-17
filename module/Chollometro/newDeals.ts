@@ -157,11 +157,13 @@ let newDeals: {
                     );
                     console.log(newDeals.length)
 
-                    await browser.close();
                 } catch (error) {
                     console.log(error);
                     throw error;
+                }finally{
+                    await browser.close();
                 }
+                
 
             }, 2000);
         })
