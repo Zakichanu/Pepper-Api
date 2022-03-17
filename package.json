@@ -1,8 +1,8 @@
 {
-  "name": "api-dealabs",
+  "name": "pepper-api",
   "version": "1.0.0",
-  "description": "Unofficial api for Dealabs website",
-  "main": "dist/controller.js",
+  "description": "Unofficial api for Pepper services",
+  "main": "controller.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "pm2 start controller.ts --name 'pepperApi' --watch",
