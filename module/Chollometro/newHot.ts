@@ -164,10 +164,12 @@ let hots: {
                     );
                     console.log(hots.length)
 
-                    await browser.close();
+                
                 } catch (error) {
                     console.log(error);
                     throw error;
+                }finally{
+                    await browser.close();
                 }
 
             }, 2000);

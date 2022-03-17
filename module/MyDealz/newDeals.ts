@@ -156,16 +156,13 @@ let newDeals: {
                         " ----------- MYDEALZ : EXTRACTION DES DEALS NEW -------"
                     );
                     console.log(newDeals.length)
-                    console.log(new Date().toLocaleString() +
-                        "------------------------------------------------------------------------------------------------"
-                    );
-
-                    await browser.close();
+                
                 } catch (error) {
                     console.log(error);
                     throw error;
+                }finally{
+                    await browser.close();
                 }
-
             }, 2000);
         })
     } catch (error) {

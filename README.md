@@ -14,6 +14,7 @@ Find full endpoints in my [Postman page](https://documenter.getpostman.com/view/
     - [MyDealz 🇩🇪](#mydealz-)
     - [Hotuk 🇬🇧](#hotuk-)
     - [Chollometro 🇪🇸](#chollometro-)
+    - [Nl.Pepper 🇳🇱](#nlpepper-)
   - [Examples](#examples)
     - [NodeJs - Requests](#nodejs---requests)
     - [Java - Unirest](#java---unirest)
@@ -54,6 +55,12 @@ Find full endpoints in my [Postman page](https://documenter.getpostman.com/view/
 - Get the 5 top deals of the day (updated every hour) : ```https://pepper.api.zakichanu.com/chollometro/topDeals``` 
 - Get 5 newest hot deals **100+ Upvotes** (updated every minute) : ```https://pepper.api.zakichanu.com/chollometro/newHots```
 - Get 5 newest deals (updated every minute) : ```https://pepper.api.zakichanu.com/chollometro/newDeals```
+
+### [Nl.Pepper 🇳🇱](https://nl.pepper.com)
+
+- Get the 5 top deals of the day (updated every hour) : ```https://pepper.api.zakichanu.com/nl-pepper/topDeals``` 
+- Get 5 newest hot deals **100+ Upvotes** (updated every minute) : ```https://pepper.api.zakichanu.com/nl-pepper/newHots```
+- Get 5 newest deals (updated every minute) : ```https://pepper.api.zakichanu.com/nl-pepper/newDeals```
 
 ## Examples
 

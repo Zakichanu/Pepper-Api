@@ -8,7 +8,7 @@ let hots: {
 
 (async () => {
     try {
-        cron.schedule('4 * * * * *', async () => {
+        cron.schedule('26 * * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -18,7 +18,7 @@ let hots: {
 
             // Opening dealabs hot tab
             const page = await browser.newPage();
-            const URL = "https://www.dealabs.com/hot";
+            const URL = "https://nl.pepper.com";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
             // Allow cookies
@@ -31,10 +31,7 @@ let hots: {
                 try {
                     // Listing new hot deals
                     const listDeals = await page.$$("div.threadGrid");
-                    console.log(
-                        new Date().toLocaleString() +
-                        " ----------- DEALABS : EXTRACTION DES DEALS HOT -------"
-                    );
+                    
 
                     // initiating index for looping list of deals
                     var limit = 5;
@@ -56,7 +53,7 @@ let hots: {
                         // Check if it is an ad
                         const pub = await listDeals[index].$("button.cept-newsletter-widget-close")
 
-                        if (pub) {
+                        if(pub){
                             limit++;
                             index++;
                         }
@@ -93,32 +90,31 @@ let hots: {
                                 "span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-hot"
                             );
 
-                            if (flameIconTagParent) {
+                            if(flameIconTagParent){
                                 const insertedTimeTag = await flameIconTagParent.$('span')
 
-                                if (insertedTimeTag) {
+                                if(insertedTimeTag){
                                     insertedTime = await page.evaluate(
                                         (tag) => tag.textContent,
                                         insertedTimeTag
                                     );
                                 }
                             }
-
+                            
 
                             // Retrieving expired time
                             const expiresIconTag = await listDeals[index].$("span.metaRibbon.cept-meta-ribbon.cept-meta-ribbon-expires")
-                            if (expiresIconTag) {
+                            if(expiresIconTag){
                                 const expriesSpanTag = await expiresIconTag.$("span");
 
-                                if (expriesSpanTag) {
+                                if(expriesSpanTag){
                                     expiredTime = await page.evaluate(
                                         (tag) => tag.textContent,
                                         expriesSpanTag
                                     );
                                 }
                             }
-
-
+                            
                             // Retrieving URL and Title
                             const titleTag = await listDeals[index].$(
                                 "a.cept-tt.thread-link.linkPlain.thread-title--list"
@@ -158,11 +154,16 @@ let hots: {
                                 expiredTime: expiredTime
                             })
                         }
-
+                        
                     }
 
                     //log
+                    console.log(
+                        new Date().toLocaleString() +
+                        " ----------- NL.PEPPER : EXTRACTION DES DEALS HOT -------"
+                    );
                     console.log(hots.length)
+
                 
                 } catch (error) {
                     console.log(error);
