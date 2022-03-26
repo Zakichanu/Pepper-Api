@@ -8,7 +8,7 @@ let hots: {
 
 (async () => {
     try {
-        cron.schedule('22 * * * * *', async () => {
+        cron.schedule('22 7,17,27,37,47,57 * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -158,15 +158,11 @@ let hots: {
                     }
 
                     //log
-                    console.log(
-                        new Date().toLocaleString() +
-                        " ----------- CHOLLOMETRO : EXTRACTION DES DEALS HOT -------"
-                    );
-                    console.log(hots.length)
-
-                
+                    if(hots.length === 0){
+                        console.error(new Date().toLocaleString() + " : 0 elements for Chollometro.newHot")
+                    }                
                 } catch (error) {
-                    console.log(error);
+                    console.error(new Date().toLocaleString() + ' '+ error);
                     throw error;
                 }finally{
                     await browser.close();
@@ -175,7 +171,7 @@ let hots: {
             }, 2000);
         })
     } catch (error) {
-        console.log(new Date().toLocaleString() + ' ' + error);
+        console.error(new Date().toLocaleString() + ' ' + error);
         throw error;
     }
 

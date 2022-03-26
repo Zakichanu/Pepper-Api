@@ -8,7 +8,7 @@ let hots: {
 
 (async () => {
     try {
-        cron.schedule('4 * * * * *', async () => {
+        cron.schedule('4 2,12,22,32,42,52 * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -31,10 +31,6 @@ let hots: {
                 try {
                     // Listing new hot deals
                     const listDeals = await page.$$("div.threadGrid");
-                    console.log(
-                        new Date().toLocaleString() +
-                        " ----------- DEALABS : EXTRACTION DES DEALS HOT -------"
-                    );
 
                     // initiating index for looping list of deals
                     var limit = 5;
@@ -162,10 +158,12 @@ let hots: {
                     }
 
                     //log
-                    console.log(hots.length)
+                    if(hots.length === 0) {
+                        console.error(new Date().toLocaleString() + " : 0 elements for Dealabs.newHot")
+                    }
                 
                 } catch (error) {
-                    console.log(error);
+                    console.error(new Date().toLocaleString() + ' ' +  error);
                     throw error;
                 }finally{
                     await browser.close();
@@ -173,7 +171,7 @@ let hots: {
             }, 2000);
         })
     } catch (error) {
-        console.log(new Date().toLocaleString() + ' ' + error);
+        console.error(new Date().toLocaleString() + ' ' + error);
         throw error;
     }
 

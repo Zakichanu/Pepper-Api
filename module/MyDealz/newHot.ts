@@ -8,7 +8,7 @@ let hots: {
 
 (async () => {
     try {
-        cron.schedule('18 * * * * *', async () => {
+        cron.schedule('18 4,14,24,34,44,54 * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -158,14 +158,12 @@ let hots: {
                     }
 
                     //log
-                    console.log(
-                        new Date().toLocaleString() +
-                        " ----------- MYDEALZ : EXTRACTION DES DEALS HOT -------"
-                    );
-                    console.log(hots.length)
+                    if(hots.length === 0) {
+                        console.error(new Date().toLocaleString() + ' 0 element for MyDealz.newHot')
+                    }
                 
                 } catch (error) {
-                    console.log(error);
+                    console.error(new Date().toLocaleString() + ' Error: ' + error);
                     throw error;
                 }finally{
                     await browser.close();
@@ -173,7 +171,7 @@ let hots: {
             }, 2000);
         })
     } catch (error) {
-        console.log(new Date().toLocaleString() + ' ' + error);
+        console.error(new Date().toLocaleString() + ' ' + error);
         throw error;
     }
 

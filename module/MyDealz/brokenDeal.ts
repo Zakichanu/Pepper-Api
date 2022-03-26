@@ -9,7 +9,7 @@ let brokenDeals: {
 
 (async () => {
     try {
-        cron.schedule('14 * * * * *', async () => {
+        cron.schedule('14 4,14,24,34,44,54 * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -145,14 +145,12 @@ let brokenDeals: {
                     }
 
                     //log
-                    console.log(
-                        new Date().toLocaleString() +
-                        " ----------- MYDEALZ : EXTRACTION DES ERREURS DE PRIX -------"
-                    );
-                    console.log(brokenDeals.length)
+                    if(brokenDeals.length > 0) {
+                        console.info(new Date().toLocaleString() + ' MyDealz.brokenDeals : ' + brokenDeals.length)
+                    }
                 
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
                     throw error;
                 }finally{
                     await browser.close();

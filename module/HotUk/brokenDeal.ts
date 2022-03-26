@@ -9,7 +9,7 @@ let brokenDeals: {
 
 (async () => {
     try {
-        cron.schedule('8 * * * * *', async () => {
+        cron.schedule('8 3,13,23,33,43,53 * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -147,14 +147,12 @@ let brokenDeals: {
                     }
 
                     //log
-                    console.log(
-                        new Date().toLocaleString() +
-                        " ----------- HOTUK : EXTRACTION DES ERREURS DE PRIX -------"
-                    );
-                    console.log(brokenDeals.length)
+                    if(brokenDeals.length > 0){
+                        console.info(new Date().toLocaleString() + " Hotuk.BrokenDeals " + brokenDeals.length)
+                    }
                 
                 } catch (error) {
-                    console.log(error);
+                    console.error(error);
                     throw error;
                 }finally{
                     await browser.close();
@@ -163,7 +161,7 @@ let brokenDeals: {
         });
 
     } catch (error) {
-        console.log(error);
+        console.error(error);
         throw error;
     }
 })();

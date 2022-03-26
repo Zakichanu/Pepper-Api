@@ -88,8 +88,9 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
           });
           
         }
-        console.log(new Date().toLocaleString() + ' ----------- MYDEALZ : EXTRACTION DES TOP DEALS -------')
-        console.log(topDeals.length)
+        if(topDeals.length === 0){
+          console.error(new Date().toLocaleString() + ' 0 element for MyDealz.topDeals')
+        }
         await browser.close();
       }, 2000);
     });
@@ -97,7 +98,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
 
 
   } catch (error) {
-    console.log(new Date().toLocaleString() + ' ' + error);
+    console.error(new Date().toLocaleString() + ' ' + error);
     throw error;
   }
 })();
