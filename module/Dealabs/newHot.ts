@@ -8,7 +8,7 @@ let hots: {
 
 (async () => {
     try {
-        cron.schedule('4 2,12,22,32,42,52 * * * *', async () => {
+        cron.schedule('4 */2 * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,

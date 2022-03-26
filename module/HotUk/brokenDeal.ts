@@ -9,7 +9,7 @@ let brokenDeals: {
 
 (async () => {
     try {
-        cron.schedule('8 3,13,23,33,43,53 * * * *', async () => {
+        cron.schedule('8 */3 * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,

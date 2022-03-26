@@ -8,7 +8,7 @@ let newDeals: {
 
 (async () => {
     try {
-        cron.schedule('28 5,15,25,35,45,55 * * * *', async () => {
+        cron.schedule('28 */5 * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
