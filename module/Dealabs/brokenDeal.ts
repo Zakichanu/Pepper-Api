@@ -9,7 +9,7 @@ let brokenDeals: {
 
 (async () => {
     try {
-        cron.schedule('2 * * * * *', async () => {
+        cron.schedule('2 2,12,22,32,42,52 * * * *', async () => {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
@@ -145,15 +145,13 @@ let brokenDeals: {
                     }
 
                     //log
-                    console.log(
-                        new Date().toLocaleString() +
-                        " ----------- DEALABS : EXTRACTION DES ERREURS DE PRIX -------"
-                    );
-                    console.log(brokenDeals.length)
+                    if(brokenDeals.length > 0){
+                        console.error(new Date().toLocaleString() + ' : Dealabs.brokenDeals : ' + brokenDeals.length)
+                    }
 
                 
                 } catch (error) {
-                    console.log(error);
+                    console.error(new Date().toLocaleString() + ' ' + error);
                     throw error;
                 }finally{
                     await browser.close();
