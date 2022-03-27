@@ -163,7 +163,7 @@ let hots: {
                     }
                 
                 } catch (error) {
-                    console.error(new Date().toLocaleString() + ' ' +  error);
+                    console.error(new Date().toLocaleString() + ' Dealabs.newHot Error: ' + error);
                     throw error;
                 }finally{
                     await browser.close();
@@ -171,7 +171,7 @@ let hots: {
             }, 2000);
         })
     } catch (error) {
-        console.error(new Date().toLocaleString() + ' ' + error);
+        console.error(new Date().toLocaleString() + ' Dealabs.newHot Error: ' + error);
         throw error;
     }
 

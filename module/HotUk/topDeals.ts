@@ -98,7 +98,7 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
 
 
   } catch (error) {
-    console.error(new Date().toLocaleString() + ' ' + error);
+    console.error(new Date().toLocaleString() + ' Hotuk.topDeals Error: ' + error);
     throw error;
   }
 })();
