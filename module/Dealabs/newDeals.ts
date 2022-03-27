@@ -154,7 +154,7 @@ let newDeals: {
                     }
                 
                 } catch (error) {
-                    console.error(new Date().toLocaleString() + ' ' + error);
+                    console.error(new Date().toLocaleString() + ' Dealabs.newDeals Error: ' + error);
                     throw error;
                 }finally{
                     await browser.close();

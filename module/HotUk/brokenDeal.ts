@@ -152,7 +152,7 @@ let brokenDeals: {
                     }
                 
                 } catch (error) {
-                    console.error(error);
+                    console.error(new Date().toLocaleString() + ' Hotuk.brokenDeals Error: ' + error);
                     throw error;
                 }finally{
                     await browser.close();
@@ -161,7 +161,7 @@ let brokenDeals: {
         });
 
     } catch (error) {
-        console.error(error);
+        console.error(new Date().toLocaleString() + ' Hotuk.brokenDeals Error: ' + error);
         throw error;
     }
 })();

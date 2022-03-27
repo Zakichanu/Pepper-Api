@@ -167,7 +167,7 @@ let newDeals: {
             }, 2000);
         })
     } catch (error) {
-        console.error(new Date().toLocaleString() + ' ' + error);
+        console.error(new Date().toLocaleString() + ' Chollometro.newDeals Error : ' + error);
         throw error;
     }
 

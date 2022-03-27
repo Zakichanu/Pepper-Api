@@ -17,7 +17,9 @@ import chollometroNewHot  from "./module/Chollometro/newHot"
 import nlPepperTopDeal from "./module/NLPepper/topDeals"
 import nlPepperNewDeals from "./module/NLPepper/newDeals"
 import nlPepperNewHot  from "./module/NLPepper/newHot"
+
 const myApp = express();
+process.setMaxListeners(100);
 
 myApp.get('/dealabs/topDeals', (req, res) => {
     if (dealabsTopDeal.topDeals.length > 0) {
@@ -278,4 +280,4 @@ myApp.get('/mydealz/brokenDeals', (req, res) => {
 
 const port = process.env.PORT || 3000;
 
-myApp.listen(port, () => console.log("App listening on port " + port));
+myApp.listen(port, () => console.log(new Date().toLocaleString() + " App listening on port " + port));

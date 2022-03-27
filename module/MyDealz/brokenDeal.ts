@@ -150,7 +150,7 @@ let brokenDeals: {
                     }
                 
                 } catch (error) {
-                    console.error(error);
+                    console.error(new Date().toLocaleString() +  ' MyDealz.brokenDeals Error:' + error);
                     throw error;
                 }finally{
                     await browser.close();

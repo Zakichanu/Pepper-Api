@@ -160,7 +160,7 @@ let newDeals: {
                     
                 
                 } catch (error) {
-                    console.error(new Date().toLocaleString() + ' Error: ' + error);
+                    console.error(new Date().toLocaleString() + ' NLPepper.newDeals Error: ' + error);
                     throw error;
                 }finally{
                     await browser.close();
@@ -168,7 +168,7 @@ let newDeals: {
             }, 2000);
         })
     } catch (error) {
-        console.error(new Date().toLocaleString() + ' ' + error);
+        console.error(new Date().toLocaleString() + ' NLPepper.newDeals Error: ' + error);
         throw error;
     }
 
