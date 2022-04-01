@@ -1,6 +1,6 @@
 <img src="logo.png" align="right" />
 
-# Pepper Api
+# *[OFFLINE]* Pepper Api
 Unofficial API for the website [Pepper](https://www.pepper.com/) made with ExpressJS & TypeScript.
 
 Find full endpoints in my [Postman page](https://documenter.getpostman.com/view/15051784/UVsMvkkb) 👩🏽‍🚀
