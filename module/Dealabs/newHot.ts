@@ -12,7 +12,12 @@ let hots: {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
-                args: ['--no-sandbox']
+                args: ['--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-infobars',
+                '--window-position=0,0',
+                '--ignore-certifcate-errors',
+                '--ignore-certifcate-errors-spki-list']
             });
 
 
