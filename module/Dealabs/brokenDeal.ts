@@ -17,6 +17,7 @@ let brokenDeals: {
             });
 
             // Opening dealabs hot tab
+            await browser.createIncognitoBrowserContext({ proxyServer: 'http://127.0.0.1:8685' });
             const page = await browser.newPage();
             const URL = "https://www.dealabs.com/groupe/erreur-de-prix";
             await page.goto(URL, { waitUntil: "networkidle0" });
