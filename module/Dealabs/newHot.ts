@@ -1,4 +1,6 @@
 import puppeteer from 'puppeteer';
+import puppeteerExtra from 'puppeteer-extra';
+import puppeteerStealth from 'puppeteer-extra-plugin-stealth';
 import cron from 'node-cron';
 
 let hots: {
@@ -10,19 +12,14 @@ let hots: {
     try {
         cron.schedule('4 */2 * * * *', async () => {
             // Preparing puppeteer
-            const browser = await puppeteer.launch({
+            puppeteerExtra.use(puppeteerStealth());
+            const browser = await puppeteerExtra.launch({
                 headless: true,
-                args: ['--no-sandbox',
-                '--disable-setuid-sandbox',
-                '--disable-infobars',
-                '--window-position=0,0',
-                '--ignore-certifcate-errors',
-                '--ignore-certifcate-errors-spki-list']
+                args: ['--no-sandbox']
             });
 
 
             // Opening dealabs hot tab
-            await browser.createIncognitoBrowserContext({ proxyServer: 'http://127.0.0.1:8685' });
             const page = await browser.newPage();
             const URL = "https://www.dealabs.com/hot";
             await page.goto(URL, { waitUntil: "networkidle0" });
