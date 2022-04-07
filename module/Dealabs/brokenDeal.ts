@@ -13,10 +13,15 @@ let brokenDeals: {
             // Preparing puppeteer
             const browser = await puppeteer.launch({
                 headless: true,
-                args: ['--no-sandbox']
+                args: ['--no-sandbox',
+                '--disable-setuid-sandbox',
+                '--disable-infobars',
+                '--window-position=0,0',
+                '--ignore-certifcate-errors',
+                '--ignore-certifcate-errors-spki-list']
             });
 
-            // Opening dealabs hot tab
+            // Opening dealabs broken deals tab
             await browser.createIncognitoBrowserContext({ proxyServer: 'http://127.0.0.1:8685' });
             const page = await browser.newPage();
             const URL = "https://www.dealabs.com/groupe/erreur-de-prix";
