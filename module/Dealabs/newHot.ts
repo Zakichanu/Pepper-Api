@@ -175,7 +175,6 @@ let hots: {
                     console.error(new Date().toLocaleString() + ' Dealabs.newHot Error: ' + error);
                     throw error;
                 }finally{
-                    console.log(new Date().toLocaleString() + "NEW HOT");
                     await browser.close();
                 }
             }, 2000);
