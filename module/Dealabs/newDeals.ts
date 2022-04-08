@@ -15,7 +15,7 @@ let newDeals: {
             const proxyServerArgs: string = '--proxy-server='+constants.proxyServer;
             puppeteerExtra.use(puppeteerStealth());
             const browser = await puppeteerExtra.launch({
-                headless: false,
+                headless: true,
                 args: ['--no-sandbox', proxyServerArgs]
             });
 
