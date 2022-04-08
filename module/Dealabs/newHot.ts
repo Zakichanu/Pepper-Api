@@ -1,7 +1,7 @@
-import puppeteer from 'puppeteer';
 import puppeteerExtra from 'puppeteer-extra';
 import puppeteerStealth from 'puppeteer-extra-plugin-stealth';
 import cron from 'node-cron';
+import constants from '../../constants';
 
 let hots: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
@@ -11,16 +11,22 @@ let hots: {
 (async () => {
     try {
         cron.schedule('4 */2 * * * *', async () => {
+            
             // Preparing puppeteer
+            const proxyServerArgs: string = '--proxy-server='+constants.proxyServer;
             puppeteerExtra.use(puppeteerStealth());
             const browser = await puppeteerExtra.launch({
                 headless: true,
-                args: ['--no-sandbox']
+                args: ['--no-sandbox', proxyServerArgs]
             });
 
 
             // Opening dealabs hot tab
             const page = await browser.newPage();
+            await page.authenticate({
+                username: constants.usernameProxy,
+                password: constants.passwordProxy,
+            });
             const URL = "https://www.dealabs.com/hot";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
@@ -169,6 +175,7 @@ let hots: {
                     console.error(new Date().toLocaleString() + ' Dealabs.newHot Error: ' + error);
                     throw error;
                 }finally{
+                    console.log(new Date().toLocaleString() + "NEW HOT");
                     await browser.close();
                 }
             }, 2000);

@@ -1,7 +1,7 @@
-import puppeteer from 'puppeteer';
 import puppeteerExtra from 'puppeteer-extra';
 import puppeteerStealth from 'puppeteer-extra-plugin-stealth';
 import cron from 'node-cron';
+import constants from '../../constants';
 
 let newDeals: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
@@ -12,15 +12,20 @@ let newDeals: {
     try {
         cron.schedule('0 */2 * * * *', async () => {
             // Preparing puppeteer
+            const proxyServerArgs: string = '--proxy-server='+constants.proxyServer;
             puppeteerExtra.use(puppeteerStealth());
             const browser = await puppeteerExtra.launch({
-                headless: true,
-                args: ['--no-sandbox']
+                headless: false,
+                args: ['--no-sandbox', proxyServerArgs]
             });
 
 
             // Opening dealabs new deals tab
             const page = await browser.newPage();
+            await page.authenticate({
+                username: constants.usernameProxy,
+                password: constants.passwordProxy,
+            });
             const URL = "https://www.dealabs.com/nouveaux";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
