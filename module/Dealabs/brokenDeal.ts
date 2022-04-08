@@ -1,7 +1,8 @@
-import puppeteer from 'puppeteer';
 import puppeteerExtra from 'puppeteer-extra';
 import puppeteerStealth from 'puppeteer-extra-plugin-stealth';
 import cron from 'node-cron';
+import constants from '../../constants';
+
 
 
 let brokenDeals: {
@@ -13,14 +14,19 @@ let brokenDeals: {
     try {
         cron.schedule('2 */2 * * * *', async () => {
             // Preparing puppeteer
+            const proxyServerArgs: string = '--proxy-server='+constants.proxyServer;
             puppeteerExtra.use(puppeteerStealth());
             const browser = await puppeteerExtra.launch({
                 headless: true,
-                args: ['--no-sandbox']
+                args: ['--no-sandbox', proxyServerArgs]
             });
 
             // Opening dealabs broken deals tab
             const page = await browser.newPage();
+            await page.authenticate({
+                username: constants.usernameProxy,
+                password: constants.passwordProxy,
+            });
             const URL = "https://www.dealabs.com/groupe/erreur-de-prix";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
