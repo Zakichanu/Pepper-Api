@@ -182,4 +182,4 @@ let reqDate: string = "";
 
 })();
 
-export default { newDeals, reqDate };
+export default { hots, reqDate };

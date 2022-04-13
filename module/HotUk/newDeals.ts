@@ -176,4 +176,4 @@ let reqDate: string = "";
 
 })();
 
-export default { newDeals };
+export default { newDeals, reqDate };
