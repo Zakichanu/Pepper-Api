@@ -6,6 +6,8 @@ import constants from '../../constants';
 // Array that stocks hottest deals
 let topDeals: { title: string; url: string; img: string; upvote: string; price: string; }[] = [];
 
+let reqDate: string = "";
+
 (async () => {
   try {
 
@@ -99,7 +101,10 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
 
         if(topDeals.length === 0){
           console.error(new Date().toLocaleString() + " : 0 elements for Dealabs.topDeals")
-        }
+        }else{
+          // Updating requesting Date
+          reqDate = new Date().toLocaleString();
+        } 
         await browser.close();
       }, 2000);
     });
@@ -112,4 +117,4 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
   }
 })();
 
-export default { topDeals };
+export default { topDeals, reqDate };
