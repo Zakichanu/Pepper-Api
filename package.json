@@ -16,8 +16,11 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "cronitor": "^2.3.1",
     "express": "^4.17.2",
+    "install": "^0.13.0",
     "node-cron": "^3.0.0",
+    "npm": "^8.6.0",
     "puppeteer": "^13.1.2",
     "puppeteer-extra": "^3.2.3",
     "puppeteer-extra-plugin-stealth": "^2.9.0"
