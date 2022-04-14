@@ -10,6 +10,9 @@ let brokenDeals: {
     insertedTime: string, expiredTime: string;
 }[] = [];
 
+
+let reqDate: string = "";
+
 (async () => {
     try {
         cron.schedule('2 */2 * * * *', async () => {
@@ -156,6 +159,9 @@ let brokenDeals: {
                     //log
                     if(brokenDeals.length > 0){
                         console.error(new Date().toLocaleString() + ' : Dealabs.brokenDeals : ' + brokenDeals.length)
+
+                        // Updating requesting Date
+                        reqDate = new Date().toLocaleString();
                     }
 
                 
@@ -173,4 +179,4 @@ let brokenDeals: {
     }
 })();
 
-export default { brokenDeals };
+export default { brokenDeals, reqDate };

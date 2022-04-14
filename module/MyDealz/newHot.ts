@@ -6,6 +6,8 @@ let hots: {
     insertedTime: string, expiredTime: string;
 }[] = [];
 
+let reqDate: string = "";
+
 (async () => {
     try {
         cron.schedule('18 */4 * * * *', async () => {
@@ -160,7 +162,10 @@ let hots: {
                     //log
                     if(hots.length === 0) {
                         console.error(new Date().toLocaleString() + ' 0 element for MyDealz.newHot')
-                    }
+                    }else{
+                        // Updating requesting Date
+                        reqDate = new Date().toLocaleString();
+                    } 
                 
                 } catch (error) {
                     console.error(new Date().toLocaleString() + ' MyDealz.newHot Error: ' + error);
@@ -177,4 +182,4 @@ let hots: {
 
 })();
 
-export default { hots };
+export default { hots, reqDate };

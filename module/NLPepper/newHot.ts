@@ -6,6 +6,8 @@ let hots: {
     insertedTime: string, expiredTime: string;
 }[] = [];
 
+let reqDate: string = "";
+
 (async () => {
     try {
         cron.schedule('26 */5 * * * *', async () => {
@@ -160,6 +162,9 @@ let hots: {
                     //log
                     if(hots.length === 0){
                         console.error(new Date().toLocaleString() + ' 0 element for NLPepper.newHot')
+                    }else{
+                        // Updating requesting Date
+                        reqDate = new Date().toLocaleString();
                     }
 
                 
@@ -178,4 +183,4 @@ let hots: {
 
 })();
 
-export default { hots };
+export default { hots, reqDate };

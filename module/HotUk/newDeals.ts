@@ -6,6 +6,9 @@ let newDeals: {
     insertedTime: string, expiredTime: string;
 }[] = [];
 
+let reqDate: string = "";
+
+
 (async () => {
     try {
         cron.schedule('10 */3 * * * *', async () => {
@@ -152,6 +155,9 @@ let newDeals: {
                     //log
                     if(newDeals.length === 0){
                         console.error(new Date().toLocaleString() + ' 0 element Hotuk.newDeals')
+                    }else{
+                        // Updating requesting Date
+                        reqDate = new Date().toLocaleString();
                     }
 
                 
@@ -170,4 +176,4 @@ let newDeals: {
 
 })();
 
-export default { newDeals };
+export default { newDeals, reqDate };

@@ -7,6 +7,8 @@ let brokenDeals: {
     insertedTime: string, expiredTime: string;
 }[] = [];
 
+let reqDate: string = "";
+
 (async () => {
     try {
         cron.schedule('14 */4 * * * *', async () => {
@@ -146,7 +148,10 @@ let brokenDeals: {
 
                     //log
                     if(brokenDeals.length > 0) {
-                        console.info(new Date().toLocaleString() + ' MyDealz.brokenDeals : ' + brokenDeals.length)
+                        console.info(new Date().toLocaleString() + ' MyDealz.brokenDeals : ' + brokenDeals.length);
+
+                        // Updating requesting Date
+                        reqDate = new Date().toLocaleString();
                     }
                 
                 } catch (error) {
@@ -163,4 +168,4 @@ let brokenDeals: {
     }
 })();
 
-export default { brokenDeals };
+export default { brokenDeals, reqDate };
