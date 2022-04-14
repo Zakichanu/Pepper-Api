@@ -10,6 +10,15 @@ let newDeals: {
 
 let reqDate: string = "";
 
+function getreqDate(){
+    return reqDate;
+}
+
+function setRequestDate(reqDateTemp: string)
+{
+    reqDate = reqDateTemp;
+}
+
 
 (async () => {
     try {
@@ -164,7 +173,7 @@ let reqDate: string = "";
                         console.error(new Date().toLocaleString() + ' : 0 element for Dealabs.newDeals')
                     }else{
                         // Updating requesting Date
-                        reqDate = new Date().toLocaleString();
+                        setRequestDate(new Date().toLocaleString() as string)
                     } 
                 
                 } catch (error) {
@@ -183,4 +192,4 @@ let reqDate: string = "";
 
 })();
 
-export default { newDeals, reqDate  };
+export default { newDeals, getreqDate, setRequestDate  };

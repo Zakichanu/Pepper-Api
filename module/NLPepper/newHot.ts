@@ -1,5 +1,7 @@
-import puppeteer from 'puppeteer';
+import puppeteerExtra from 'puppeteer-extra';
+import puppeteerStealth from 'puppeteer-extra-plugin-stealth';
 import cron from 'node-cron';
+import constants from '../../constants';
 
 let hots: {
     title: string; url: string; img: string; upvote: string; price: string; username: string;
@@ -8,18 +10,33 @@ let hots: {
 
 let reqDate: string = "";
 
+function getreqDate(){
+    return reqDate;
+}
+
+function setRequestDate(reqDateTemp: string)
+{
+    reqDate = reqDateTemp;
+}
+
 (async () => {
     try {
         cron.schedule('26 */5 * * * *', async () => {
             // Preparing puppeteer
-            const browser = await puppeteer.launch({
+            const proxyServerArgs: string = '--proxy-server='+constants.proxyServer;
+            puppeteerExtra.use(puppeteerStealth());
+            const browser = await puppeteerExtra.launch({
                 headless: true,
-                args: ['--no-sandbox']
+                args: ['--no-sandbox', proxyServerArgs]
             });
 
 
             // Opening dealabs hot tab
             const page = await browser.newPage();
+            await page.authenticate({
+                username: constants.usernameProxy,
+                password: constants.passwordProxy,
+            });
             const URL = "https://nl.pepper.com";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
@@ -164,7 +181,7 @@ let reqDate: string = "";
                         console.error(new Date().toLocaleString() + ' 0 element for NLPepper.newHot')
                     }else{
                         // Updating requesting Date
-                        reqDate = new Date().toLocaleString();
+                        setRequestDate(new Date().toLocaleString() as string)
                     }
 
                 
@@ -183,4 +200,4 @@ let reqDate: string = "";
 
 })();
 
-export default { hots, reqDate };
+export default { hots, getreqDate, setRequestDate };

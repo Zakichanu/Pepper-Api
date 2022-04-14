@@ -13,6 +13,15 @@ let brokenDeals: {
 
 let reqDate: string = "";
 
+function getreqDate(){
+    return reqDate;
+}
+
+function setRequestDate(reqDateTemp: string)
+{
+    reqDate = reqDateTemp;
+}
+
 (async () => {
     try {
         cron.schedule('2 */2 * * * *', async () => {
@@ -161,7 +170,7 @@ let reqDate: string = "";
                         console.error(new Date().toLocaleString() + ' : Dealabs.brokenDeals : ' + brokenDeals.length)
 
                         // Updating requesting Date
-                        reqDate = new Date().toLocaleString();
+                        setRequestDate(new Date().toLocaleString() as string)
                     }
 
                 
@@ -179,4 +188,4 @@ let reqDate: string = "";
     }
 })();
 
-export default { brokenDeals, reqDate };
+export default { brokenDeals, getreqDate, setRequestDate  };

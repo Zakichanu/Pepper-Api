@@ -25,13 +25,13 @@ myApp.get('/dealabs/topDeals', (req, res) => {
     if (dealabsTopDeal.topDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  dealabsTopDeal.reqDate,
+            insertionDate:  dealabsTopDeal.getreqDate(),
             data: dealabsTopDeal.topDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  dealabsTopDeal.reqDate,
+            insertionDate:  dealabsTopDeal.getreqDate(),
             data: dealabsTopDeal.topDeals
         })
     }
@@ -41,13 +41,13 @@ myApp.get('/hotuk/topDeals', (req, res) => {
     if (hotukTopDeal.topDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  hotukTopDeal.reqDate,
+            insertionDate:  hotukTopDeal.getreqDate(),
             data: hotukTopDeal.topDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  hotukTopDeal.reqDate,
+            insertionDate:  hotukTopDeal.getreqDate(),
             data: hotukTopDeal.topDeals
         })
     }
@@ -57,13 +57,13 @@ myApp.get('/mydealz/topDeals', (req, res) => {
     if (mydealzTopDeal.topDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  mydealzTopDeal.reqDate,
+            insertionDate:  mydealzTopDeal.getreqDate(),
             data: mydealzTopDeal.topDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  mydealzTopDeal.reqDate,
+            insertionDate:  mydealzTopDeal.getreqDate(),
             data: mydealzTopDeal.topDeals
         })
     }
@@ -73,13 +73,13 @@ myApp.get('/chollometro/topDeals', (req, res) => {
     if (chollometroTopDeal.topDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  chollometroTopDeal.reqDate,
+            insertionDate:  chollometroTopDeal.getreqDate(),
             data: chollometroTopDeal.topDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  chollometroTopDeal.reqDate,
+            insertionDate:  chollometroTopDeal.getreqDate(),
             data: chollometroTopDeal.topDeals
         })
     }
@@ -89,13 +89,13 @@ myApp.get('/nl-pepper/topDeals', (req, res) => {
     if (nlPepperTopDeal.topDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  nlPepperTopDeal.reqDate,
+            insertionDate:  nlPepperTopDeal.getreqDate(),
             data: nlPepperTopDeal.topDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  nlPepperTopDeal.reqDate,
+            insertionDate:  nlPepperTopDeal.getreqDate(),
             data: nlPepperTopDeal.topDeals
         })
     }
@@ -107,13 +107,13 @@ myApp.get('/dealabs/newHots', (req, res) => {
     if (dealabsNewHot.hots.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  dealabsNewHot.reqDate,
+            insertionDate:  dealabsNewHot.getreqDate(),
             data: dealabsNewHot.hots
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  dealabsNewHot.reqDate,
+            insertionDate:  dealabsNewHot.getreqDate(),
             data: dealabsNewHot.hots
         })
     }
@@ -123,13 +123,13 @@ myApp.get('/hotuk/newHots', (req, res) => {
     if (hotukNewHot.hots.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  hotukNewHot.reqDate,
+            insertionDate:  hotukNewHot.getreqDate(),
             data: hotukNewHot.hots
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  hotukNewHot.reqDate,
+            insertionDate:  hotukNewHot.getreqDate(),
             data: hotukNewHot.hots
         })
     }
@@ -139,13 +139,13 @@ myApp.get('/mydealz/newHots', (req, res) => {
     if (mydealzNewHot.hots.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  mydealzNewHot.reqDate,
+            insertionDate:  mydealzNewHot.getreqDate(),
             data: mydealzNewHot.hots
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  mydealzNewHot.reqDate,
+            insertionDate:  mydealzNewHot.getreqDate(),
             data: mydealzNewHot.hots
         })
     }
@@ -155,13 +155,13 @@ myApp.get('/chollometro/newHots', (req, res) => {
     if (chollometroNewHot.hots.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  chollometroNewHot.reqDate,
+            insertionDate:  chollometroNewHot.getreqDate(),
             data: chollometroNewHot.hots
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  chollometroNewHot.reqDate,
+            insertionDate:  chollometroNewHot.getreqDate(),
             data: chollometroNewHot.hots
         })
     }
@@ -171,13 +171,13 @@ myApp.get('/nl-pepper/newHots', (req, res) => {
     if (nlPepperNewHot.hots.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  nlPepperNewHot.reqDate,
+            insertionDate:  nlPepperNewHot.getreqDate(),
             data: nlPepperNewHot.hots
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  nlPepperNewHot.reqDate,
+            insertionDate:  nlPepperNewHot.getreqDate(),
             data: nlPepperNewHot.hots
         })
     }
@@ -187,13 +187,13 @@ myApp.get('/dealabs/newDeals', (req, res) => {
     if (dealabsNewDeal.newDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  dealabsNewDeal.reqDate,
+            insertionDate:  dealabsNewDeal.getreqDate(),
             data: dealabsNewDeal.newDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  dealabsNewDeal.reqDate,
+            insertionDate:  dealabsNewDeal.getreqDate(),
             data: dealabsNewDeal.newDeals
         })
     }
@@ -203,13 +203,13 @@ myApp.get('/hotuk/newDeals', (req, res) => {
     if (hotukNewDeals.newDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  hotukNewDeals.reqDate,
+            insertionDate:  hotukNewDeals.getreqDate(),
             data: hotukNewDeals.newDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  hotukNewDeals.reqDate,
+            insertionDate:  hotukNewDeals.getreqDate(),
             data: hotukNewDeals.newDeals
         })
     }
@@ -219,13 +219,13 @@ myApp.get('/mydealz/newDeals', (req, res) => {
     if (mydealzNewDeals.newDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  mydealzNewDeals.reqDate,
+            insertionDate:  mydealzNewDeals.getreqDate(),
             data: mydealzNewDeals.newDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  mydealzNewDeals.reqDate,
+            insertionDate:  mydealzNewDeals.getreqDate(),
             data: mydealzNewDeals.newDeals
         })
     }
@@ -235,13 +235,13 @@ myApp.get('/chollometro/newDeals', (req, res) => {
     if (chollometroNewDeals.newDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  chollometroNewDeals.reqDate,
+            insertionDate:  chollometroNewDeals.getreqDate(),
             data: chollometroNewDeals.newDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  chollometroNewDeals.reqDate,
+            insertionDate:  chollometroNewDeals.getreqDate(),
             data: chollometroNewDeals.newDeals
         })
     }
@@ -251,13 +251,13 @@ myApp.get('/nl-pepper/newDeals', (req, res) => {
     if (nlPepperNewDeals.newDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  nlPepperNewDeals.reqDate,
+            insertionDate:  nlPepperNewDeals.getreqDate(),
             data: nlPepperNewDeals.newDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  nlPepperNewDeals.reqDate,
+            insertionDate:  nlPepperNewDeals.getreqDate(),
             data: nlPepperNewDeals.newDeals
         })
     }
@@ -267,13 +267,13 @@ myApp.get('/dealabs/brokenDeals', (req, res) => {
     if (delabsBrokenDeals.brokenDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  delabsBrokenDeals.reqDate,
+            insertionDate:  delabsBrokenDeals.getreqDate(),
             data: delabsBrokenDeals.brokenDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  delabsBrokenDeals.reqDate,
+            insertionDate:  delabsBrokenDeals.getreqDate(),
             data: delabsBrokenDeals.brokenDeals
         })
     }
@@ -284,13 +284,13 @@ myApp.get('/hotuk/brokenDeals', (req, res) => {
     if (hotukBrokenDeals.brokenDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  hotukBrokenDeals.reqDate,
+            insertionDate:  hotukBrokenDeals.getreqDate(),
             data: hotukBrokenDeals.brokenDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  hotukBrokenDeals.reqDate,
+            insertionDate:  hotukBrokenDeals.getreqDate(),
             data: hotukBrokenDeals.brokenDeals
         })
     }
@@ -301,13 +301,13 @@ myApp.get('/mydealz/brokenDeals', (req, res) => {
     if (mydealzBrokenDeals.brokenDeals.length > 0) {
         res.json({
             information: 'DEALS FOUND',
-            insertionDate:  mydealzBrokenDeals.reqDate,
+            insertionDate:  mydealzBrokenDeals.getreqDate(),
             data: mydealzBrokenDeals.brokenDeals
         })
     } else {
         res.json({ 
             information: 'NO DEAL FOUND',
-            insertionDate:  mydealzBrokenDeals.reqDate,
+            insertionDate:  mydealzBrokenDeals.getreqDate(),
             data: mydealzBrokenDeals.brokenDeals
         })
     }
