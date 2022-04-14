@@ -1,5 +1,7 @@
-import puppeteer from 'puppeteer';
+import puppeteerExtra from 'puppeteer-extra';
+import puppeteerStealth from 'puppeteer-extra-plugin-stealth';
 import cron from 'node-cron';
+import constants from '../../constants';
 
 
 let brokenDeals: {
@@ -9,17 +11,33 @@ let brokenDeals: {
 
 let reqDate: string = "";
 
+function getreqDate(){
+    return reqDate;
+}
+
+function setRequestDate(reqDateTemp: string)
+{
+    reqDate = reqDateTemp;
+}
+
 (async () => {
     try {
         cron.schedule('14 */4 * * * *', async () => {
             // Preparing puppeteer
-            const browser = await puppeteer.launch({
+            const proxyServerArgs: string = '--proxy-server='+constants.proxyServer;
+            puppeteerExtra.use(puppeteerStealth());
+            const browser = await puppeteerExtra.launch({
                 headless: true,
-                args: ['--no-sandbox']
+                args: ['--no-sandbox', proxyServerArgs]
             });
 
-            // Opening dealabs hot tab
+
+            // Opening myDealz brokenDeals tab
             const page = await browser.newPage();
+            await page.authenticate({
+                username: constants.usernameProxy,
+                password: constants.passwordProxy,
+            });
             const URL = "https://www.mydealz.de/gruppe/preisfehler";
             await page.goto(URL, { waitUntil: "networkidle0" });
 
@@ -151,7 +169,7 @@ let reqDate: string = "";
                         console.info(new Date().toLocaleString() + ' MyDealz.brokenDeals : ' + brokenDeals.length);
 
                         // Updating requesting Date
-                        reqDate = new Date().toLocaleString();
+                        setRequestDate(new Date().toLocaleString() as string)
                     }
                 
                 } catch (error) {
@@ -168,4 +186,4 @@ let reqDate: string = "";
     }
 })();
 
-export default { brokenDeals, reqDate };
+export default { brokenDeals, getreqDate, setRequestDate };

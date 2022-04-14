@@ -8,7 +8,17 @@ let hots: {
     insertedTime: string, expiredTime: string;
 }[] = [];
 
+
 let reqDate: string = "";
+
+function getreqDate(){
+    return reqDate;
+}
+
+function setRequestDate(reqDateTemp: string)
+{
+    reqDate = reqDateTemp;
+}
 
 (async () => {
     try {
@@ -173,7 +183,7 @@ let reqDate: string = "";
                         console.error(new Date().toLocaleString() + " : 0 elements for Dealabs.newHot")
                     }else{
                         // Updating requesting Date
-                        reqDate = new Date().toLocaleString();
+                        setRequestDate(new Date().toLocaleString() as string)
                     } 
                 
                 } catch (error) {
@@ -191,4 +201,4 @@ let reqDate: string = "";
 
 })();
 
-export default { hots, reqDate };
+export default { hots, getreqDate, setRequestDate };

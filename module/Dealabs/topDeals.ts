@@ -8,6 +8,15 @@ let topDeals: { title: string; url: string; img: string; upvote: string; price: 
 
 let reqDate: string = "";
 
+function getreqDate(){
+  return reqDate;
+}
+
+function setRequestDate(reqDateTemp: string)
+{
+  reqDate = reqDateTemp;
+}
+
 (async () => {
   try {
 
@@ -103,7 +112,7 @@ let reqDate: string = "";
           console.error(new Date().toLocaleString() + " : 0 elements for Dealabs.topDeals")
         }else{
           // Updating requesting Date
-          reqDate = new Date().toLocaleString();
+          setRequestDate(new Date().toLocaleString() as string)
         } 
         await browser.close();
       }, 2000);
@@ -117,4 +126,4 @@ let reqDate: string = "";
   }
 })();
 
-export default { topDeals, reqDate };
+export default { topDeals, getreqDate, setRequestDate };
