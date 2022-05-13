@@ -5,6 +5,8 @@ Unofficial API for the website [Pepper](https://www.pepper.com/) made with Expre
 
 Find full endpoints in my [Postman page](https://documenter.getpostman.com/view/15051784/UVsMvkkb) 👩🏽‍🚀
 
+> NB : This one is offline because of some issues to get access to some of the websites of Pepper, I have to refactor it or getting some access.
+
 ## Table of contents
 
 - [Pepper Api](#pepper-api)
